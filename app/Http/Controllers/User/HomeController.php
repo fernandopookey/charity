@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Cause;
 use App\Models\FooterContent;
 use App\Models\HelpReason;
@@ -34,6 +35,7 @@ class HomeController extends Controller
             'navbarContent' => NavbarContent::first(),
             'footerContent' => FooterContent::first(),
             'mediaSocials'  => MediaSocial::all(),
+            'about'         => About::first(),
             'causes'        => Cause::with('causeImage')->get()
         ];
 

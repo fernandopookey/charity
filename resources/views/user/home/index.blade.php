@@ -138,15 +138,14 @@
 
 <!-- latest_activites_area_start  -->
 <div class="latest_activites_area">
-    <div class=" video_bg_1 video_activite  d-flex align-items-center justify-content-center">
+    <div class=" video_bg_1 video_activite  d-flex align-items-center justify-content-center"
+        style="background-color: #f8004c">
         {{-- <a class="popup-video" href="https://www.youtube.com/watch?v=MG3jGHnBVQs">
             <i class="flaticon-ui"></i>
         </a> --}}
         <div class="video-container" style="position: relative; display: inline-block;">
-            <video width="600" height="500" controls class="mx-3 my-2">
-                <source src="{{ Storage::url($homeVideo->video ?? '') }}" type="video/mp4">
-                <source src="{{ Storage::url($homeVideo->video ?? '') }}" type="video/ogg">
-            </video>
+            <img src="{{ Storage::url($about->logo ?? '') }}" class="lazyload"
+                style="width: 155px; height: 180px; object-fit: cover; margin-top: 50px;" alt="image">
         </div>
     </div>
     <div class="container">
@@ -154,10 +153,10 @@
             <div class="col-lg-7">
                 <div class="activites_info">
                     <div class="section_title">
-                        <h3>{{ $homeVideo->title }}</h3>
+                        <h3>{{ $about->title }}</h3>
                     </div>
-                    <p class="para_1">{{ $homeVideo->description }}/p>
-                        <a href="#" data-scroll-nav='1' class="boxed-btn4">Donate Now</a>
+                    <p class="para_1">{{ $about->description }}</p>
+                    {{-- <a href="#" data-scroll-nav='1' class="boxed-btn4">Donate Now</a> --}}
                 </div>
             </div>
         </div>
