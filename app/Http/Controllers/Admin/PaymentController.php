@@ -1,0 +1,162 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Cause;
+use App\Models\Payment;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
+
+class PaymentController extends Controller
+{
+    public function create(Request $request, $id)
+    {
+        // dd($request);
+        // dd(Auth::user());
+        $userData = Auth::user();
+        $userName = ($userData) ? $userData->name : 'Anonymous';
+        $userEmail = ($userData) ? $userData->email : 'Anonymous';
+        $causeData = Cause::find($id);
+        $request->validate([
+            'price' => 'required|numeric',
+            // 'item_name' => 'required|string',
+            // 'customer_name' => 'required|string',
+            // 'customer_email' => 'required|email',
+        ]);
+        $rep = $request['price'];
+
+        $replacePrice = preg_replace("/[^0-9]/", "", "$rep");
+        // dd($replacePrice);
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => Str::uuid(),
+                'gross_amount' => $replacePrice,
+                'cause_id'  => $causeData->id
+            ],
+            'item_details' => [
+                [
+                    'price' => $replacePrice,
+                    'quantity' => 1,
+                    'name' => $causeData->title,
+                    // 'name' => $request->item_name,
+                ],
+            ],
+            'customer_details' => [
+                'customer_name' => $userName,
+                // 'customer_name' => $request->customer_name,
+                'customer_email' => $userEmail,
+                // 'customer_email' => $request->customer_email,
+            ],
+            // 'enabled_payments' => ['bca_va', 'bni_va', 'bri_va'],
+        ];
+
+        $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => "Basic $auth",
+        ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+
+        if ($response->failed()) {
+            return response()->json(['error' => 'Payment request failed', 'details' => $response->body()], 500);
+        }
+
+        $response = json_decode($response->body());
+
+        $token = $response->token ?? null;
+        $redirectUrl = $response->redirect_url ?? null;
+
+        if (!$token || !$redirectUrl) {
+            return response()->json(['error' => 'Token or redirect URL is missing'], 500);
+        }
+
+        $payment = new Payment;
+        $payment->order_id = $params['transaction_details']['order_id'];
+        $payment->cause_id = $causeData->id;
+        $payment->status = 'pending';
+        $payment->price = $replacePrice;
+        $payment->customer_name = $userName;
+        // $payment->customer_name = $request->customer_name;
+        $payment->customer_email = $userEmail;
+        // $payment->customer_email = $request->customer_email;
+        $payment->item_name = $causeData->title;
+        $payment->checkout_link = $redirectUrl;
+        $payment->save();
+
+        // return response()->json([
+        //     'token' => $token,
+        //     'redirect_url' => $redirectUrl,
+        // ]);
+
+        return Redirect::away($payment->checkout_link);
+    }
+
+    // public function webhook(Request $request)
+    // {
+    //     $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+
+    //     $response = Http::withHeaders([
+    //         'Content-Type' => 'application/json',
+    //         'Authorization' => "Basic $auth",
+    //     ])->get("https://api.sandbox.midtrans.com/v2/$request->order_id/status");
+
+    //     $response = json_decode($response->body());
+
+    //     $payment = Payment::where('order_id', $response->order_id)->first();
+
+    //     if ($payment->status === 'settlement' || $payment->status === 'capture') {
+    //         return response()->json('Payment has been already processed');
+    //     }
+
+    //     if ($response->transaction_status === 'capture') {
+    //         $payment->status = 'capture';
+    //     } else if ($response->transaction_status === 'settlement') {
+    //         $payment->status = 'settlement';
+    //     } else if ($response->transaction_status === 'pending') {
+    //         $payment->status = 'pending';
+    //     } else if ($response->transaction_status === 'deny') {
+    //         $payment->status = 'deny';
+    //     } else if ($response->transaction_status === 'expire') {
+    //         $payment->status = 'expire';
+    //     } else if ($response->transaction_status === 'cancel') {
+    //         $payment->status = 'cancel';
+    //     }
+
+
+    //     $payment->save();
+
+    //     return response()->json('success');
+    // }
+
+    public function webhook(Request $request)
+    {
+        $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => "Basic $auth",
+        ])->get("https://api.sandbox.midtrans.com/v2/{$request->order_id}/status");
+
+        $response = json_decode($response->body());
+
+        $payment = Payment::where('order_id', $response->order_id)->first();
+
+        if (!$payment) {
+            return response()->json(['error' => 'Payment not found'], 404);
+        }
+
+        if ($payment->status === 'settlement' || $payment->status === 'capture') {
+            return response()->json('Payment has been already processed');
+        }
+
+        $payment->status = $response->transaction_status;
+        $payment->save();
+
+        return response()->json('Payment status updated successfully');
+    }
+}
