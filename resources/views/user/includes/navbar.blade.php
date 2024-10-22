@@ -44,7 +44,7 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="{{ route('home') }}">Beranda</a></li>
-                                        <li><a href="About.html">Tentang</a></li>
+                                        <li><a href="{{ route('user-about') }}">Tentang</a></li>
                                         {{-- <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="blog.html">blog</a></li>
@@ -57,8 +57,8 @@
                                                 <li><a href="Cause.html">Cause</a></li>
                                             </ul>
                                         </li> --}}
-                                        <li><a href="contact.html">Kontak</a></li>
-                                        <li>
+                                        {{-- <li><a href="contact.html">Kontak</a></li> --}}
+                                        {{-- <li>
                                             <a href="#">pages <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <div class="Appointment">
@@ -72,7 +72,7 @@
                                                     </div>
                                                 </div>
                                             </ul>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </nav>
                                 <div class="Appointment">

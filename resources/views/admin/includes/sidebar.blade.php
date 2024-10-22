@@ -282,6 +282,12 @@
                     <span>Konten Footer</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('about.index') }}">
+                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <span>About</span>
+                </a>
+            </li>
         </ul>
 
     </aside><!-- End Sidebar-->

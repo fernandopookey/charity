@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CauseController;
 use App\Http\Controllers\Admin\CauseImageController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -35,6 +36,7 @@ Route::get('/donate/detail/{id}', [DonateController::class, 'show'])->name('user
 
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth-google');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth-google-callback');
+Route::get('about-us', [AboutController::class, 'userAbout'])->name('user-about');
 
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -69,6 +71,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::resource('cause', '\App\Http\Controllers\Admin\CauseController');
     Route::resource('slider', '\App\Http\Controllers\Admin\SliderController');
+    Route::resource('about', '\App\Http\Controllers\Admin\AboutController');
     Route::resource('help-reasons', '\App\Http\Controllers\Admin\HelpReasonController');
     Route::resource('home-video', '\App\Http\Controllers\Admin\HomeVideoController');
     Route::resource('transactions', '\App\Http\Controllers\Admin\TransactionController');
