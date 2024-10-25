@@ -72,7 +72,7 @@
                 <div class="card-body">
                     @foreach ($causeVideos as $causeVideo)
                         <div class="video-container" style="position: relative; display: inline-block;">
-                            <a href="{{ route('cause-image-delete', $causeImage) }}"
+                            <a href="{{ route('cause-image-delete', $causeVideo) }}"
                                 style="position: absolute; top: 5px; right: 5px; color: #32CD32; z-index: 10;">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>

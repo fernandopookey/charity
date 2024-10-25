@@ -9,8 +9,8 @@
                             <div class="short_contact_list">
                                 <ul>
                                     <li><a href="#"> <i class="fa fa-phone"></i>
-                                            {{ $navbarContent->phone_number }}</a></li>
-                                    <li><a href="#"> <i class="fa fa-envelope"></i>{{ $navbarContent->email }}</a>
+                                            {{ $about->phone }}</a></li>
+                                    <li><a href="#"> <i class="fa fa-envelope"></i>{{ $about->email }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -28,13 +28,13 @@
                     </div>
                 </div>
             </div>
-            <div id="sticky-header" style="background-color: #e7e7e7;" class="main-header-area">
+            <div id="sticky-header" style="background-color: #FF0055;" class="main-header-area">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-xl-3 col-lg-3">
                             <div class="logo">
                                 <a href="{{ route('home') }}">
-                                    <img src="{{ Storage::url($navbarContent->logo ?? '') }}"
+                                    <img src="{{ Storage::url($about->logo ?? '') }}"
                                         style="width: 50px; height: 60px; object-fit: cover;" alt="">
                                 </a>
                             </div>
@@ -43,8 +43,14 @@
                             <div class="main-menu">
                                 <nav>
                                     <ul id="navigation">
-                                        <li><a href="{{ route('home') }}">Beranda</a></li>
-                                        <li><a href="{{ route('user-about') }}">Tentang</a></li>
+                                        <li><a style="text-decoration: none;" href="{{ route('home') }}">Beranda</a>
+                                        </li>
+                                        <li><a style="text-decoration: none;"
+                                                href="{{ route('user-about') }}">Tentang</a></li>
+                                        <li><a style="text-decoration: none;" href="{{ route('user-contact') }}">Hubungi
+                                                Kami</a></li>
+                                        <li><a style="text-decoration: none;"
+                                                href="{{ route('our-gallery') }}">Gallery</a></li>
                                         {{-- <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="blog.html">blog</a></li>
@@ -78,15 +84,14 @@
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
                                         @guest
-                                            <a href="{{ route('donate') }}">Donasi</a>
+                                            <a href="{{ route('donate') }}" style="text-decoration: none;">Donasi</a>
                                         @endguest
                                         @auth
                                             {{-- <a href="#">{{ Auth::user()->name }}</a> --}}
                                             {{-- <a href="#">Logout</a> --}}
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-
-                                                <x-dropdown-link :href="route('logout')"
+                                                <x-dropdown-link :href="route('logout')" style="text-decoration: none;"
                                                     onclick="event.preventDefault();
                                                                     this.closest('form').submit();">
                                                     {{ __('Logout') }}

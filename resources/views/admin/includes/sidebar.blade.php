@@ -270,7 +270,7 @@
                     <span>Media Sosial</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('navbar-contents.index') }}">
                     <i class="bi bi-layout-text-window-reverse"></i>
                     <span>Konten Navbar</span>
@@ -281,11 +281,17 @@
                     <i class="bi bi-layout-text-window-reverse"></i>
                     <span>Konten Footer</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('about.index') }}">
                     <i class="bi bi-layout-text-window-reverse"></i>
                     <span>About</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('gallery.index') }}">
+                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <span>Gallery</span>
                 </a>
             </li>
         </ul>

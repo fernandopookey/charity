@@ -25,6 +25,46 @@
     <link rel="stylesheet" href="{{ asset('charifit-master/css/slicknav.css') }}">
     <link rel="stylesheet" href="{{ asset('charifit-master/css/style.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('charifit-master/css/responsive.css') }}"> --}}
+
+    <style>
+        .customButton {
+            background-color: #69F6D0;
+            color: #FF0055;
+            border: none;
+            border-radius: 6px;
+            padding: 7px 11px 7px;
+            cursor: pointer;
+
+        }
+
+        .customButton:hover {
+            background-color: #FF0055;
+            color: #69F6D0;
+            border: none;
+            border-radius: 6px;
+            padding: 7px 11px 7px;
+            cursor: pointer;
+        }
+
+        .customButton2 {
+            background-color: #69F6D0;
+            color: black;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 15px 10px;
+            cursor: pointer;
+
+        }
+
+        .customButton2:hover {
+            background-color: #FF0055;
+            color: #69F6D0;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 15px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>

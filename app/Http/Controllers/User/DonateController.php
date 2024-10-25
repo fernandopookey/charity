@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Cause;
 use App\Models\CauseImage;
+use App\Models\FooterContent;
+use App\Models\MediaSocial;
+use App\Models\NavbarContent;
 use Illuminate\Http\Request;
 
 class DonateController extends Controller
@@ -13,6 +17,10 @@ class DonateController extends Controller
     {
         $data = [
             'causes'    => Cause::all(),
+            'navbarContent' => NavbarContent::first(),
+            'footerContent' => FooterContent::first(),
+            'mediaSocials'  => MediaSocial::all(),
+            'about'         => About::first(),
             'content'   => 'user/donate/index'
         ];
 
@@ -21,7 +29,6 @@ class DonateController extends Controller
 
     public function show($id)
     {
-        // $test = Cause::with('causePayment')->where('id', $id)->get();
         $test = Cause::find($id);
         $payments = $test->causePayment;
         $prices = [];
@@ -30,8 +37,7 @@ class DonateController extends Controller
         }
         $jml = array_sum($prices);
         $jml = intval($jml);
-        $raised = ($prices) ? $test->goal - $jml : $jml;
-        // dd($raised);
+        // $raised = ($prices) ? $test->goal - $jml : $jml;
         $data = [
             'cause'         => Cause::find($id),
             'causeImages'   => CauseImage::where('cause_id', $id) // Filter berdasarkan cause_id
@@ -45,7 +51,12 @@ class DonateController extends Controller
                 ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
                 ->get(),
             'causePayment'  => Cause::with('causePayment')->where('id', $id)->get(),
-            'raised'        => $raised,
+            'raised'        => $jml,
+            'causes'        => Cause::all(),
+            'navbarContent' => NavbarContent::first(),
+            'footerContent' => FooterContent::first(),
+            'mediaSocials'  => MediaSocial::all(),
+            'about'         => About::first(),
             'content'       => 'user/donate/detail',
         ];
 

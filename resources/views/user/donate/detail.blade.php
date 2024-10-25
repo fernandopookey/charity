@@ -148,12 +148,13 @@
         <div class="row mb-4">
             <div class="col-lg-12">
                 <div class="d-flex flex-column align-items-center">
+                    <p><b class="text-dark">Pilih nominal donasi.</b></p>
                     <form action="{{ route('api-payments', $cause->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="d-flex align-items-center mb-2">
                             <input type="hidden" name="price" value="10000">
                             <input type="text" class="form-control" value="Rp. 10.000" readonly>
-                            <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-arrow-right"
+                            <button type="submit" class="customButton ml-2"><i class="fa fa-arrow-right"
                                     aria-hidden="true"></i></button>
                         </div>
                     </form>
@@ -162,7 +163,7 @@
                         <div class="d-flex align-items-center mb-2">
                             <input type="hidden" name="price" value="20000">
                             <input type="text" class="form-control" value="Rp. 20.000" readonly>
-                            <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-arrow-right"
+                            <button type="submit" class="ml-2 customButton"><i class="fa fa-arrow-right"
                                     aria-hidden="true"></i></button>
                         </div>
                     </form>
@@ -171,7 +172,7 @@
                         <div class="d-flex align-items-center mb-2">
                             <input type="hidden" name="price" value="30000">
                             <input type="text" class="form-control" value="Rp. 30.000" readonly>
-                            <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-arrow-right"
+                            <button type="submit" class="customButton ml-2"><i class="fa fa-arrow-right"
                                     aria-hidden="true"></i></button>
                         </div>
                     </form>
@@ -181,7 +182,7 @@
                         <div class="d-flex align-items-center mb-2">
                             <input type="hidden" name="price" value="50000">
                             <input type="text" class="form-control" value="Rp. 50.000" readonly>
-                            <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-arrow-right"
+                            <button type="submit" class="customButton ml-2"><i class="fa fa-arrow-right"
                                     aria-hidden="true"></i></button>
                         </div>
                     </form>
@@ -196,6 +197,9 @@
             @csrf
             <div class="row">
                 <div class="col-lg-12">
+                    <div class="d-flex justify-content-center">
+                        <p><b class="text-dark">Masukan nominal donasi.</b></p>
+                    </div>
                     <div class="d-flex justify-content-center">
                         <div class="d-flex col-lg-4">
                             <div class="input-group-prepend">
@@ -212,7 +216,8 @@
                 <div class="col-12">
                     <div class="donate_now_btn text-center">
                         {{-- <a href="#" class="boxed-btn4">Donasi Sekarang</a> --}}
-                        <button type="submit" class="boxed-btn4">Donasi Sekarang</button>
+                        <button type="submit" class="customButton" style="font-size: 20px; font-weight: bold">Donasi
+                            Sekarang</button>
                     </div>
                 </div>
 

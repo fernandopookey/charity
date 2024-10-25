@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin\AboutController;
 use App\Http\Controllers\Admin\CauseController;
 use App\Http\Controllers\Admin\CauseImageController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
@@ -37,6 +39,9 @@ Route::get('/donate/detail/{id}', [DonateController::class, 'show'])->name('user
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth-google');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth-google-callback');
 Route::get('about-us', [AboutController::class, 'userAbout'])->name('user-about');
+Route::get('contact', [ContactController::class, 'index'])->name('user-contact');
+Route::post('contact', [ContactController::class, 'store'])->name('send-message');
+Route::get('our-gallery', [GalleryController::class, 'userGallery'])->name('our-gallery');
 
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -77,8 +82,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('transactions', '\App\Http\Controllers\Admin\TransactionController');
     Route::resource('users', '\App\Http\Controllers\Admin\UserController');
     Route::resource('media-socials', '\App\Http\Controllers\Admin\MediaSocialController');
-    Route::resource('navbar-contents', '\App\Http\Controllers\Admin\NavbarContentController');
-    Route::resource('footer-contents', '\App\Http\Controllers\Admin\FooterContentController');
+    // Route::resource('navbar-contents', '\App\Http\Controllers\Admin\NavbarContentController');
+    // Route::resource('footer-contents', '\App\Http\Controllers\Admin\FooterContentController');
+    Route::resource('gallery', '\App\Http\Controllers\Admin\GalleryController');
 });
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
