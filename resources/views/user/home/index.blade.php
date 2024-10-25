@@ -17,36 +17,41 @@
     </div>
 </div> --}}
 
-<div class="row" style="margin-top: 70px">
-    <div class="col-lg-12">
-        <div class="causes_active owl-carousel">
-            @foreach ($causes as $cause)
-                <div class="single_cause">
-                    <div class="thumb">
-                        <img src="{{ $cause->causeImage->image }}" style="height: 250px; object-fit: cover;"
-                            alt="Cause Image">
-                    </div>
-                    <div class="causes_content">
-                        <div class="custom_progress_bar">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30"
-                                    aria-valuemin="0" aria-valuemax="100">
-                                    <span class="progres_count">
-                                        30%
-                                    </span>
+<div class="container">
+    <div class="row" style="margin-top: 70px">
+        <div class="col-lg-12">
+            <div class="causes_active owl-carousel">
+                @foreach ($causes as $cause)
+                    <div class="single_cause">
+                        <div class="thumb">
+                            <img src="{{ $cause->causeImage->image ?? '' }}" style="height: 250px; object-fit: cover;"
+                                alt="Cause Image" loading="lazy" class="gallery-image" data-bs-toggle="modal"
+                                data-bs-target="#imageModal" data-bs-image="{{ $cause->causeImage->image ?? '' }}">
+                        </div>
+                        <div class="causes_content">
+                            <div class="custom_progress_bar">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30"
+                                        aria-valuemin="0" aria-valuemax="100">
+                                        <span class="progres_count">
+                                            30%
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="balance d-flex justify-content-between align-items-center mb-2">
+                                <span style="color: #f8004c;">Terkumpul:
+                                    {{ rupiahFormat($causesWithRaised[$cause->id] ?? 0) }}</span>
+                                <span style="color: #f8004c;">Target: {{ rupiahFormat($cause->goal) }}</span>
+                            </div>
+                            <h4>{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
+                            <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
+                            <a class="read_more" href="{{ route('user-cause-detail', $cause->id) }}">Selengkapnya</a>
                         </div>
-                        <div class="balance d-flex justify-content-between align-items-center mb-2">
-                            <span style="color: #f8004c;">Terkumpul: Rp. 50.000</span>
-                            <span style="color: #f8004c;">Target: {{ rupiahFormat($cause->goal) }}</span>
-                        </div>
-                        <h4>{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
-                        <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
-                        <a class="read_more" href="{{ route('user-cause-detail', $cause->id) }}">Selengkapnya</a>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+
+            </div>
         </div>
     </div>
 </div>
@@ -137,26 +142,28 @@
 </div> --}}
 
 <!-- latest_activites_area_start  -->
-<div class="latest_activites_area">
-    <div class=" video_bg_1 video_activite  d-flex align-items-center justify-content-center"
-        style="background-color: #f8004c">
-        {{-- <a class="popup-video" href="https://www.youtube.com/watch?v=MG3jGHnBVQs">
+<div class="container">
+    <div class="latest_activites_area">
+        <div class=" video_bg_1 video_activite  d-flex align-items-center justify-content-center"
+            style="background-color: #FF0055">
+            {{-- <a class="popup-video" href="https://www.youtube.com/watch?v=MG3jGHnBVQs">
             <i class="flaticon-ui"></i>
         </a> --}}
-        <div class="video-container" style="position: relative; display: inline-block;">
-            <img src="{{ Storage::url($about->logo ?? '') }}" class="lazyload"
-                style="width: 155px; height: 180px; object-fit: cover; margin-top: 50px;" alt="image">
+            <div class="video-container" style="position: relative; display: inline-block;">
+                <img src="{{ Storage::url($about->logo ?? '') }}" class="lazyload"
+                    style="width: 155px; height: 180px; object-fit: cover; margin-top: 50px;" alt="image">
+            </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-lg-7">
-                <div class="activites_info">
-                    <div class="section_title">
-                        <h3>{{ $about->title }}</h3>
+        <div class="container">
+            <div class="row justify-content-end">
+                <div class="col-lg-7">
+                    <div class="activites_info">
+                        <div class="section_title">
+                            <h3>{{ $about->title }}</h3>
+                        </div>
+                        <p class="para_1">{{ $about->description }}</p>
+                        {{-- <a href="#" data-scroll-nav='1' class="boxed-btn4">Donate Now</a> --}}
                     </div>
-                    <p class="para_1">{{ $about->description }}</p>
-                    {{-- <a href="#" data-scroll-nav='1' class="boxed-btn4">Donate Now</a> --}}
                 </div>
             </div>
         </div>
@@ -212,7 +219,7 @@
 <!-- popular_causes_area_end  -->
 
 <!-- counter_area_start  -->
-{{-- <div class="counter_area">
+{{-- <div class="counter_area mt-5">
     <div class="container">
         <div class="counter_bg overlay">
             <div class="row">
@@ -222,8 +229,8 @@
                             <i class="flaticon-calendar"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
-                            <p>Finished Event</p>
+                            <h3 class="counter">{{ $causes }}</h3>
+                            <p>Tujuan Donasi</p>
                         </div>
                     </div>
                 </div>
@@ -233,7 +240,7 @@
                             <i class="flaticon-heart-beat"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
+                            <h3 class="counter">100</h3>
                             <p>Finished Event</p>
                         </div>
                     </div>
@@ -244,7 +251,7 @@
                             <i class="flaticon-in-love"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
+                            <h3 class="counter">50</h3>
                             <p>Finished Event</p>
                         </div>
                     </div>
@@ -255,7 +262,7 @@
                             <i class="flaticon-hug"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
+                            <h3 class="counter">30</h3>
                             <p>Finished Event</p>
                         </div>
                     </div>
@@ -483,3 +490,15 @@
         </div>
     </div>
 </div> --}}
+
+
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img src="" id="modalImage" style="width: 500px; height: 500px; object-fit: cover;"
+                    class="img-fluid" alt="Gallery Image">
+            </div>
+        </div>
+    </div>
+</div>

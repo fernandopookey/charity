@@ -7,11 +7,11 @@
                         <div class="footer_widget">
                             <div class="footer_logo">
                                 <a href="#">
-                                    <img src="{{ Storage::url($footerContent->logo ?? '') }}"
+                                    <img src="{{ Storage::url($about->logo ?? '') }}"
                                         style="width: 20px; height: 20px; object-fit: cover" alt="">
                                 </a>
                             </div>
-                            <p class="address_text">{{ $footerContent->description }}</p>
+                            <p class="address_text">{{ $about->description }}</p>
                             <div class="socail_links">
                                 <ul>
                                     @foreach ($mediaSocials as $mediaSocial)
@@ -48,9 +48,9 @@
                                 Kontak
                             </h3>
                             <div class="contacts">
-                                <p>{{ $footerContent->phone_number }} <br>
-                                    {{ $footerContent->email }} <br>
-                                    {{ $footerContent->address }}
+                                <p>{{ $about->phone }} <br>
+                                    {{ $about->email }} <br>
+                                    {{ $about->address }}
                                 </p>
                             </div>
                         </div>
@@ -151,6 +151,13 @@
     <script src="{{ asset('charifit-master/js/main.js') }}"></script>
 
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
     {{-- Custom --}}
 
     {{-- Rupiah Format --}}
@@ -182,6 +189,22 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            const modalImage = document.getElementById('modalImage');
+
+            galleryImages.forEach(image => {
+                image.addEventListener('click', function() {
+                    const imgSrc = this.getAttribute('data-bs-image');
+                    modalImage.setAttribute('src', imgSrc);
+                });
+            });
+        });
+    </script>
+
+
 
     </body>
 

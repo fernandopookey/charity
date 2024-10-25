@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>About US</h3>
+                        <h3>Tentang Kami</h3>
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                         <div class="section_title">
                             <h3><span>{{ $about->title }}</span></h3>
                         </div>
-                        <p class="para_1">{{ $about->description }}</p>
+                        <p style="font-size: 20px;" class="para_1">{{ $about->description }}</p>
                     </div>
                 </div>
             </div>

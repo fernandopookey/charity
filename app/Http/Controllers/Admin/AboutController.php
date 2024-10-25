@@ -29,6 +29,9 @@ class AboutController extends Controller
         $item = About::find($id);
         $data = $request->validate([
             'title'         => 'nullable',
+            'email'         => 'required|email',
+            'phone'         => 'required',
+            'address'       => 'required',
             'description'   => 'nullable',
             'logo'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
