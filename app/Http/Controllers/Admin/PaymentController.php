@@ -10,17 +10,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PaymentController extends Controller
 {
     public function create(Request $request, $id)
     {
-        // dd($request);
-        // dd(Auth::user());
         $userData = Auth::user();
         $userName = ($userData) ? $userData->name : 'Anonymous';
         $userEmail = ($userData) ? $userData->email : 'Anonymous';
         $causeData = Cause::find($id);
+
+        $payments = $causeData->causePayment;
+        $prices = [];
+        foreach ($payments as $payment) {
+            $prices[] = $payment->price;
+        }
+        $jml = array_sum($prices);
+        $jml = intval($jml);
+        $causeGoal = $causeData->goal;
         $request->validate([
             'price' => 'required|numeric',
             // 'item_name' => 'required|string',
@@ -28,72 +36,117 @@ class PaymentController extends Controller
             // 'customer_email' => 'required|email',
         ]);
         $rep = $request['price'];
+        // $result = intval($rep) + $jml;
+        // $result2 = (float)$result;
+        // $result3 = intval($result2);
 
         $replacePrice = preg_replace("/[^0-9]/", "", "$rep");
-        // dd($replacePrice);
+        $replacePrice = (int)$replacePrice;
+        // dd(intval($replacePrice));
 
-        $params = [
-            'transaction_details' => [
-                'order_id' => Str::uuid(),
-                'gross_amount' => $replacePrice,
-                'cause_id'  => $causeData->id
-            ],
-            'item_details' => [
-                [
-                    'price' => $replacePrice,
-                    'quantity' => 1,
-                    'name' => $causeData->title,
-                    // 'name' => $request->item_name,
-                ],
-            ],
-            'customer_details' => [
-                'customer_name' => $userName,
-                // 'customer_name' => $request->customer_name,
-                'customer_email' => $userEmail,
-                // 'customer_email' => $request->customer_email,
-            ],
-            // 'enabled_payments' => ['bca_va', 'bni_va', 'bri_va'],
-        ];
+        $result = $replacePrice + $jml;
 
-        $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
 
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Authorization' => "Basic $auth",
-        ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+        if ($result > $causeGoal) {
+            // dd("Sudah tidak bisa");
+            Alert::error('Gagal!', 'Jumlah yang didonasikan tidak boleh lebih dari target donasi!');
+            return redirect()->back();
+        } else {
+            if ($replacePrice <= 50000) {
+                $params = [
+                    'transaction_details' => [
+                        'order_id' => Str::uuid(),
+                        'gross_amount' => $replacePrice,
+                        'cause_id'  => $causeData->id
+                    ],
+                    'item_details' => [
+                        [
+                            'price' => $replacePrice,
+                            'quantity' => 1,
+                            'name' => $causeData->title,
+                            // 'name' => $request->item_name,
+                        ],
+                    ],
+                    'customer_details' => [
+                        'customer_name' => $userName,
+                        // 'customer_name' => $request->customer_name,
+                        'customer_email' => $userEmail,
+                        // 'customer_email' => $request->customer_email,
+                    ],
+                    'enabled_payments' => ['gopay'],
+                ];
+            } else {
+                $params = [
+                    'transaction_details' => [
+                        'order_id' => Str::uuid(),
+                        'gross_amount' => $replacePrice,
+                        'cause_id'  => $causeData->id
+                    ],
+                    'item_details' => [
+                        [
+                            'price' => $replacePrice,
+                            'quantity' => 1,
+                            'name' => $causeData->title,
+                            // 'name' => $request->item_name,
+                        ],
+                    ],
+                    'customer_details' => [
+                        'customer_name' => $userName,
+                        // 'customer_name' => $request->customer_name,
+                        'customer_email' => $userEmail,
+                        // 'customer_email' => $request->customer_email,
+                    ],
+                    // 'enabled_payments' => ['bca_va', 'bni_va', 'bri_va'],
+                ];
+            }
 
-        if ($response->failed()) {
-            return response()->json(['error' => 'Payment request failed', 'details' => $response->body()], 500);
+            $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
+
+            // Sandbox
+            // $response = Http::withHeaders([
+            //     'Content-Type' => 'application/json',
+            //     'Authorization' => "Basic $auth",
+            // ])->post('https://app.sandbox.midtrans.com/snap/v1/transactions', $params);
+
+            // Production
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'Authorization' => "Basic $auth",
+            ])->post('https://app.midtrans.com/snap/v1/transactions', $params);
+
+            if ($response->failed()) {
+                return response()->json(['error' => 'Payment request failed', 'details' => $response->body()], 500);
+            }
+
+            $response = json_decode($response->body());
+
+            $token = $response->token ?? null;
+            $redirectUrl = $response->redirect_url ?? null;
+
+            if (!$token || !$redirectUrl) {
+                return response()->json(['error' => 'Token or redirect URL is missing'], 500);
+            }
+
+            $payment = new Payment;
+            $payment->order_id = $params['transaction_details']['order_id'];
+            $payment->cause_id = $causeData->id;
+            $payment->status = 'pending';
+            $payment->price = $replacePrice;
+            $payment->customer_name = $userName;
+            // $payment->customer_name = $request->customer_name;
+            $payment->customer_email = $userEmail;
+            // $payment->customer_email = $request->customer_email;
+            $payment->item_name = $causeData->title;
+            $payment->checkout_link = $redirectUrl;
+            $payment->save();
+
+            // return response()->json([
+            //     'token' => $token,
+            //     'redirect_url' => $redirectUrl,
+            // ]);
+
+            return Redirect::away($payment->checkout_link);
         }
-
-        $response = json_decode($response->body());
-
-        $token = $response->token ?? null;
-        $redirectUrl = $response->redirect_url ?? null;
-
-        if (!$token || !$redirectUrl) {
-            return response()->json(['error' => 'Token or redirect URL is missing'], 500);
-        }
-
-        $payment = new Payment;
-        $payment->order_id = $params['transaction_details']['order_id'];
-        $payment->cause_id = $causeData->id;
-        $payment->status = 'pending';
-        $payment->price = $replacePrice;
-        $payment->customer_name = $userName;
-        // $payment->customer_name = $request->customer_name;
-        $payment->customer_email = $userEmail;
-        // $payment->customer_email = $request->customer_email;
-        $payment->item_name = $causeData->title;
-        $payment->checkout_link = $redirectUrl;
-        $payment->save();
-
-        // return response()->json([
-        //     'token' => $token,
-        //     'redirect_url' => $redirectUrl,
-        // ]);
-
-        return Redirect::away($payment->checkout_link);
     }
 
     // public function webhook(Request $request)
@@ -158,5 +211,20 @@ class PaymentController extends Controller
         $payment->save();
 
         return response()->json('Payment status updated successfully');
+    }
+
+    public function finish()
+    {
+        return response()->json('Transaksi anda sedang diproses');
+    }
+
+    public function unfinish()
+    {
+        return response()->json('Transaksi anda sedang diproses');
+    }
+
+    public function error()
+    {
+        return response()->json('Transaksi anda gagal');
     }
 }

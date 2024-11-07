@@ -42,37 +42,26 @@ class HomeController extends Controller
 
     public function index()
     {
-        $causes = Cause::with('causePayment')->get();
-
-        $pricesByCause = [];
-
-        foreach ($causes as $cause) {
-            foreach ($cause->causePayment as $payment) {
-                if (isset($pricesByCause[$cause->id])) {
-                    $pricesByCause[$cause->id] += $payment->price;
-                } else {
-                    $pricesByCause[$cause->id] = $payment->price;
-                }
-            }
-        }
+        $causes = Cause::getCauseListActive("");
+        // dd($causes);
 
         $data = [
             'content'       => 'user/home/index',
             'slider'        => Slider::first(),
             'helpReasons'   => HelpReason::all(),
             'homeVideo'     => HomeVideo::first(),
-            // 'navbarContent' => NavbarContent::first(),
-            // 'footerContent' => FooterContent::first(),
             'mediaSocials'  => MediaSocial::all(),
             'about'         => About::first(),
             'transaction'   => Payment::count(),
             'causeCount'    => Cause::count(),
-            'causes'        => Cause::with(['causeImage' => function ($query) {
-                $query->where('image', 'like', '%.jpg')
-                    ->orWhere('image', 'like', '%.jpeg')
-                    ->orWhere('image', 'like', '%.png');
-            }])->get(),
-            'causesWithRaised' => $pricesByCause,
+            'causes'        => $causes
+            // 'causes'        => Cause::with(['causeImage' => function ($query) {
+            //     $query->where('image', 'like', '%.jpg')
+            //         ->orWhere('image', 'like', '%.jpeg')
+            //         ->orWhere('image', 'like', '%.png');
+            // }])
+            //     ->where('status', 1)->get(),
+            // 'causesWithRaised' => $pricesByCause,
         ];
 
         return view('user.layouts.wrapper', $data);

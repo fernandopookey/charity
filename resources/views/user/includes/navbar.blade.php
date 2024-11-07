@@ -28,7 +28,8 @@
                     </div>
                 </div>
             </div>
-            <div id="sticky-header" style="background-color: #FF0055;" class="main-header-area">
+            <div id="sticky-header" style="background-color: #fdfafb; border: 0.1px solid #e9e9e9;"
+                class="main-header-area">
                 <div class="container-fluid">
                     <div class="row align-items-center">
                         <div class="col-xl-3 col-lg-3">
@@ -41,16 +42,16 @@
                         </div>
                         <div class="col-xl-9 col-lg-9">
                             <div class="main-menu">
-                                <nav>
+                                <nav class="">
                                     <ul id="navigation">
                                         <li><a style="text-decoration: none;" href="{{ route('home') }}">Beranda</a>
                                         </li>
                                         <li><a style="text-decoration: none;"
                                                 href="{{ route('user-about') }}">Tentang</a></li>
-                                        <li><a style="text-decoration: none;" href="{{ route('user-contact') }}">Hubungi
-                                                Kami</a></li>
                                         <li><a style="text-decoration: none;"
                                                 href="{{ route('our-gallery') }}">Gallery</a></li>
+                                        <li><a style="text-decoration: none;" href="{{ route('user-contact') }}">Hubungi
+                                                Kami</a></li>
                                         {{-- <li><a href="#">blog <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="blog.html">blog</a></li>
@@ -82,7 +83,7 @@
                                     </ul>
                                 </nav>
                                 <div class="Appointment">
-                                    <div class="book_btn d-none d-lg-block">
+                                    <div class="book_btn d-none d-lg-block" style="margin-bottom: 12px;">
                                         @guest
                                             <a href="{{ route('donate') }}" style="text-decoration: none;">Donasi</a>
                                         @endguest
@@ -103,7 +104,9 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="mobile_menu d-block d-lg-none"></div>
+                            <div class="mobile_menu d-block d-lg-none">
+
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
     <!-- bradcam_area_start  -->
-    <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center">
+    <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center container">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
@@ -13,7 +13,7 @@
     <!-- bradcam_area_end  -->
 
     <!-- latest_activites_area_start  -->
-    <div class="latest_activites_area mt-5">
+    <div class="latest_activites_area mt-5 container">
         <div class=" video_bg_1 video_activite  d-flex align-items-center justify-content-center">
             <img src="{{ Storage::url($about->logo ?? '') }}" class="lazyload"
                 style="width: 155px; height: 180px; object-fit: cover; margin-top: 50px;" alt="image">

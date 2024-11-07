@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\Contact;
 use App\Models\FooterContent;
 use App\Models\MediaSocial;
@@ -18,6 +19,7 @@ class ContactController extends Controller
             'navbarContent' => NavbarContent::first(),
             'footerContent' => FooterContent::first(),
             'mediaSocials'  => MediaSocial::all(),
+            'about'         => About::first(),
             'content'       => 'user/contact/index'
         ];
 

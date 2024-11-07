@@ -26,6 +26,8 @@ class CauseStoreRequest extends FormRequest
             'title'         => 'required|string',
             'goal'          => 'required|numeric',
             'description'   => 'nullable',
+            'status'        => 'required',
+            'days'          => 'required'
         ];
     }
 
