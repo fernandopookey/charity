@@ -1,10 +1,10 @@
     <!-- bradcam_area_start  -->
-    <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center">
+    <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center container">
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>Causes</h3>
+                        <h3>Tujuan Donasi</h3>
                     </div>
                 </div>
             </div>
@@ -20,10 +20,13 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="single_cause">
                             <div class="thumb">
-                                <img src="{{ asset('charifit-master/img/causes/1.png') }}" alt="">
+                                <img src="{{ $cause->causeImage->image ?? '' }}"
+                                    style="height: 250px; object-fit: cover;" alt="Cause Image" loading="lazy"
+                                    class="gallery-image" data-bs-toggle="modal" data-bs-target="#imageModal"
+                                    data-bs-image="{{ $cause->causeImage->image ?? '' }}">
                             </div>
                             <div class="causes_content">
-                                <div class="custom_progress_bar">
+                                {{-- <div class="custom_progress_bar">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" style="width: 30%;"
                                             aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
@@ -32,13 +35,15 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="balance d-flex justify-content-between align-items-center">
-                                    <span>Raised: $5000.00 </span>
-                                    <span>Goal: {{ rupiahFormat($cause->goal) }} </span>
+                                    <span style="color: #f8004c;">Terkumpul :
+                                        {{ rupiahFormat($causesWithRaised[$cause->id] ?? 0) }}</span>
+                                    <span style="color: #f8004c;">Goal: {{ rupiahFormat($cause->goal) }} </span>
                                 </div>
-                                <h4>{{ $cause->title }}</h4>
-                                <p>{{ \Illuminate\Support\Str::limit($cause->description, 50) }}</p>
+                                {{-- <p>Sisa Hari: 3</p> --}}
+                                <h4>{{ \Illuminate\Support\Str::limit($cause->title, 28) }}</h4>
+                                <p>{{ \Illuminate\Support\Str::limit($cause->description, 43) }}</p>
                                 {{-- {{ \Illuminate\Support\Str::limit($product ?? '',500,' ...') }} --}}
                                 <a class="read_more" href="{{ route('user-cause-detail', $cause->id) }}">Detail</a>
                             </div>

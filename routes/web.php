@@ -51,6 +51,9 @@ Route::get('our-gallery', [GalleryController::class, 'userGallery'])->name('our-
 // ==========================================================================================================================================================
 
 Route::get('/donate', [DonateController::class, 'index'])->name('donate');
+Route::get('/payment/finish', [PaymentController::class, 'finish'])->name('finish');
+Route::get('/payment/unfinish', [PaymentController::class, 'unfinish'])->name('unfinish');
+Route::get('/payment/error', [PaymentController::class, 'error'])->name('error');
 
 
 // Route::prefix('api')->middleware('api')->group(function () {

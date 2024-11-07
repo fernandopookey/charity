@@ -76,10 +76,13 @@
                                 style="position: absolute; top: 5px; right: 5px; color: #32CD32; z-index: 10;">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
-                            <video width="320" height="240" controls class="mx-3 my-2">
-                                <source src="{{ asset($causeVideo->image) }}" type="video/mp4">
+                            <video width="320" height="240" controls class="mx-3 my-2" volume="1" controls
+                                autoplay loop>
+                                <source src="{{ asset($causeVideo->image) }}">
                                 <source src="{{ asset($causeVideo->image) . '.ogg' }}" type="video/ogg">
                             </video>
+                            {{-- <iframe width="320" height="240" src="{{ asset($causeVideo->image) }}" allow="autoplay"
+                                allowfullscreen></iframe> --}}
                         </div>
                     @endforeach
                 </div>

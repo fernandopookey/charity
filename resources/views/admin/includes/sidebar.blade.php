@@ -229,44 +229,44 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('cause.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
                     <span>Cause</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('slider.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
                     <span>Slider</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('help-reasons.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-handshake-o" aria-hidden="true"></i>
                     <span>Help Reason</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('home-video.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
                     <span>Home Video</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('transactions.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-money" aria-hidden="true"></i>
                     <span>Transaksi</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('users.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-users" aria-hidden="true"></i>
                     <span>User</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('media-socials.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-link" aria-hidden="true"></i>
                     <span>Media Sosial</span>
                 </a>
             </li>
@@ -284,13 +284,13 @@
             </li> --}}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('about.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
                     <span>About</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('gallery.index') }}">
-                    <i class="bi bi-layout-text-window-reverse"></i>
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
                     <span>Gallery</span>
                 </a>
             </li>

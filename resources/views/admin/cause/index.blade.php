@@ -1,3 +1,9 @@
+<style>
+    .bg {
+        background-color: #e21010;
+    }
+</style>
+
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
@@ -18,8 +24,12 @@
                                 <th>No</th>
                                 <th>Title</th>
                                 <th>Goal</th>
-                                {{-- <th>Goal</th> --}}
-                                <th>Description</th>
+                                <th>Raised</th>
+                                <th>Days Left</th>
+                                <th>Date</th>
+                                {{-- <th>Description</th> --}}
+                                <th>Visibility</th>
+                                <th>Status</th>
                                 <th>Images</th>
                                 <th>Action</th>
                             </tr>
@@ -30,10 +40,29 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $cause->title }}</td>
                                     <td>{{ rupiahFormat($cause->goal) }}</td>
-                                    <td>{{ \Illuminate\Support\Str::limit($cause->description, 50) }}</td>
+                                    <td>{{ rupiahFormat($cause->raised) }}</span></td>
+                                    <td>{{ $cause->left_days }} Days</td>
+                                    <td>{{ dateFormat($cause->created_at, 'DD MMMM YYYY') }} -
+                                        {{ dateFormat($cause->expired_date, 'DD MMMM YYYY') }}</td>
+                                    {{-- <td>{{ \Illuminate\Support\Str::limit($cause->description, 50) }}</td> --}}
                                     <td>
-                                        <a href="{{ route('cause-image-upload', $cause->id) }}" class="btn btn-info">Add
-                                            / View Images & Videos</a>
+                                        @if ($cause->visibility_status == 1)
+                                            <span class="badge bg-primary">Publish</span>
+                                        @else
+                                            <span class="badge bg-danger">Non Publish</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($cause->active_status == 'Running')
+                                            <span class="badge bg-primary">Running</span>
+                                        @else
+                                            <span class="badge bg-danger">Ended</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('cause-image-upload', $cause->id) }}" class="btn btn-info"><i
+                                                class="fa fa-file-image-o" aria-hidden="true"></i> & <i
+                                                class="fa fa-video-camera" aria-hidden="true"></i></a>
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ route('cause.edit', $cause->id) }}"

@@ -18,7 +18,7 @@
                         @endif
                         <div class="col-md-6">
                             <label class="form-label">Title</label>
-                            <input type="text" name="title" class="form-control">
+                            <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                         </div>
                         {{-- <div class="col-md-6">
                             <label for="inputName5" class="form-label">Raised</label>
@@ -28,21 +28,30 @@
                             <label class="form-label">Goal</label>
                             <input type="text" name="goal" class="form-control" id="rupiah" placeholder="Rp.0">
                         </div>
-                        <div class="col-12">
-                            <label class="form-label">Description</label>
-                            <div class="form-floating">
-                                <textarea class="form-control" name="description" id="floatingTextarea" style="height: 100px;"></textarea>
-                                <label for="floatingTextarea"></label>
+                        <div class="col-md-6">
+                            <label class="form-label">Days</label>
+                            <input type="number" name="days" class="form-control" value="{{ old('days') }}">
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Visibility</label>
+                                <select name="status" class="form-control" required>
+                                    <option selected disabled>Pilih</option>
+                                    <option value="1">Publish</option>
+                                    <option value="0">Non Publish</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <label for="inputNumber" class="col-sm-2 col-form-label">Upload Image</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" type="file" id="formFile">
+                        <div class="col-6">
+                            <label class="form-label">Description</label>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="description" id="floatingTextarea" style="height: 300px;"></textarea>
+                                <label for="floatingTextarea">{{ old('description') }}</label>
                             </div>
                         </div>
                         <div class="text-start">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="{{ route('cause.index') }}" class="btn btn-secondary">Back</a>
                         </div>
                     </form><!-- End Multi Columns Form -->
                 </div>

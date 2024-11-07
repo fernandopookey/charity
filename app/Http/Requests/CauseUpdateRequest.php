@@ -25,6 +25,8 @@ class CauseUpdateRequest extends FormRequest
             'title'         => 'nullable|string',
             'goal'          => 'nullable|numeric',
             'description'   => 'nullable',
+            'status'        => 'nullable',
+            'days'          => 'nullable'
         ];
     }
 

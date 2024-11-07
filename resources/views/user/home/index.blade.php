@@ -22,35 +22,41 @@
         <div class="col-lg-12">
             <div class="causes_active owl-carousel">
                 @foreach ($causes as $cause)
+                    <?php
+                    $percentation = $cause->goal > 0 ? ($cause->raised / $cause->goal) * 100 : 0;
+                    ?>
                     <div class="single_cause">
                         <div class="thumb">
-                            <img src="{{ $cause->causeImage->image ?? '' }}" style="height: 250px; object-fit: cover;"
+                            <img src="{{ $cause->primary_image ?? '' }}" style="height: 250px; object-fit: cover;"
                                 alt="Cause Image" loading="lazy" class="gallery-image" data-bs-toggle="modal"
-                                data-bs-target="#imageModal" data-bs-image="{{ $cause->causeImage->image ?? '' }}">
+                                data-bs-target="#imageModal" data-bs-image="{{ $cause->primary_image ?? '' }}">
                         </div>
                         <div class="causes_content">
                             <div class="custom_progress_bar">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 30%;" aria-valuenow="30"
-                                        aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar" role="progressbar"
+                                        style="width: {{ round($percentation) }}%;"
+                                        aria-valuenow="{{ round($percentation) }}" aria-valuemin="0"
+                                        aria-valuemax="100">
                                         <span class="progres_count">
-                                            30%
+                                            {{ round($percentation) }}%
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="balance d-flex justify-content-between align-items-center mb-2">
                                 <span style="color: #f8004c;">Terkumpul:
-                                    {{ rupiahFormat($causesWithRaised[$cause->id] ?? 0) }}</span>
+                                    {{ rupiahFormat($cause->raised ?? 0) }}</span>
                                 <span style="color: #f8004c;">Target: {{ rupiahFormat($cause->goal) }}</span>
                             </div>
+                            <small style="font-size: 13px"><b style="color: rgb(106, 105, 105)">Sisa Hari :
+                                    {{ $cause->left_days }}</b></small>
                             <h4>{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
                             <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
                             <a class="read_more" href="{{ route('user-cause-detail', $cause->id) }}">Selengkapnya</a>
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </div>

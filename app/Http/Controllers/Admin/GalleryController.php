@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\About;
 use App\Models\FooterContent;
 use App\Models\Gallery;
 use App\Models\MediaSocial;
@@ -15,6 +16,23 @@ class GalleryController extends Controller
 {
     public function index()
     {
+        // $images = Gallery::where('image', 'LIKE', '%.jpg')
+        //     ->orWhere('image', 'LIKE', '%.png')
+        //     ->orWhere('image', 'LIKE', '%.jpeg')->get();
+
+        // $videos = Gallery::where('image', 'LIKE', '%.mp4')
+        //     ->orWhere('image', 'LIKE', '%.avi')
+        //     ->orWhere('image', 'LIKE', '%.mov')->get();
+        // // dd($videos);
+
+        // $data = [
+        //     'title'     => 'Gallery',
+        //     // 'galleries' => Gallery::all(),
+        //     'content'   => 'admin/gallery/index'
+        // ];
+
+        // return view('admin.layout.wrapper', $data);
+
         $data = [
             'title'     => 'Gallery',
             'galleries' => Gallery::all(),
@@ -38,7 +56,7 @@ class GalleryController extends Controller
     {
         $data = $request->validate([
             'title'     => 'required',
-            'image'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
+            'image'        => 'required|mimes:jpeg,png,jpg,mp4,mov,avi|max:2048'
         ]);
 
         if ($request->hasFile('image')) {
@@ -131,6 +149,7 @@ class GalleryController extends Controller
             'footerContent' => FooterContent::first(),
             'mediaSocials'  => MediaSocial::all(),
             'galleries'     => Gallery::all(),
+            'about'         => About::first(),
             'content'       => 'user/gallery/index'
         ];
 

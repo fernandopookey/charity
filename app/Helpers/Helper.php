@@ -22,3 +22,8 @@ function rupiahFormatFloat($nominal, $prefix = null)
     // Format angka menjadi format rupiah
     return $prefix . number_format($nominal, 0, ',', '.');
 }
+
+function dateFormat($date, $format = 'Y-MM-DD')
+{
+    return \Carbon\Carbon::parse($date)->isoFormat($format);
+}
