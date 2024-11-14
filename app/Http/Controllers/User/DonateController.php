@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Cause;
 use App\Models\CauseImage;
+use App\Models\Donation;
 use App\Models\FooterContent;
 use App\Models\MediaSocial;
 use App\Models\NavbarContent;
@@ -45,23 +46,20 @@ class DonateController extends Controller
 
     public function show($id)
     {
+        $donatePrices = Donation::all();
+        // dd($donatePrices);
+
         $causes = Cause::getCauseList3("");
         $causeById = Cause::getCauseList3($id);
         $causeList = Cause::getCauseList3($id);
         $now = Carbon::now()->tz('Asia/Jakarta');
-        // dd($now);
-        // dd($causeById[0]->all_videos);
-        // dd($causeById[0]);
-        // dd($causeById);
         // dd($causeList);
-        // dd($causeById[0]);
 
         $test = CauseImage::where('cause_id', $id)
             ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
             ->get();
 
         $data = [
-            // 'cause'         => Cause::find($id),
             'causes'        => $causes,
             'causeById'     => $causeById[0],
             'causesList'    => $causeList,
@@ -70,6 +68,7 @@ class DonateController extends Controller
             'mediaSocials'  => MediaSocial::all(),
             'about'         => About::first(),
             'now'           => $now,
+            'donatePrices'  => $donatePrices,
             'causeVideos'   => CauseImage::where('cause_id', $id)
                 ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
                 ->get(),
@@ -78,8 +77,6 @@ class DonateController extends Controller
 
         return view('user.layouts.wrapper', $data);
     }
-
-    // public function show($id)
     // {
     //     // Ambil data Cause berdasarkan ID
     //     $cause = Cause::with(['causePayment', 'causeImage'])->find($id);
@@ -122,6 +119,5 @@ class DonateController extends Controller
     public function process(Request $request)
     {
         return 'Halo';
-        // dd($request);
     }
 }

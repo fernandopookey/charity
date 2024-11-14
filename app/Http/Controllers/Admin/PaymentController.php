@@ -16,12 +16,14 @@ class PaymentController extends Controller
 {
     public function create(Request $request, $id)
     {
+        // dd($request);
         $userData = Auth::user();
         $userName = ($userData) ? $userData->name : 'Anonymous';
         $userEmail = ($userData) ? $userData->email : 'Anonymous';
         $causeData = Cause::find($id);
 
         $payments = $causeData->causePayment;
+        // dd($payments);
         $prices = [];
         foreach ($payments as $payment) {
             $prices[] = $payment->price;
@@ -36,16 +38,13 @@ class PaymentController extends Controller
             // 'customer_email' => 'required|email',
         ]);
         $rep = $request['price'];
-        // $result = intval($rep) + $jml;
-        // $result2 = (float)$result;
-        // $result3 = intval($result2);
 
         $replacePrice = preg_replace("/[^0-9]/", "", "$rep");
         $replacePrice = (int)$replacePrice;
         // dd(intval($replacePrice));
 
         $result = $replacePrice + $jml;
-
+        // dd(intval($result));
 
         if ($result > $causeGoal) {
             // dd("Sudah tidak bisa");
@@ -64,14 +63,11 @@ class PaymentController extends Controller
                             'price' => $replacePrice,
                             'quantity' => 1,
                             'name' => $causeData->title,
-                            // 'name' => $request->item_name,
                         ],
                     ],
                     'customer_details' => [
                         'customer_name' => $userName,
-                        // 'customer_name' => $request->customer_name,
                         'customer_email' => $userEmail,
-                        // 'customer_email' => $request->customer_email,
                     ],
                     'enabled_payments' => ['gopay'],
                 ];
@@ -87,14 +83,11 @@ class PaymentController extends Controller
                             'price' => $replacePrice,
                             'quantity' => 1,
                             'name' => $causeData->title,
-                            // 'name' => $request->item_name,
                         ],
                     ],
                     'customer_details' => [
                         'customer_name' => $userName,
-                        // 'customer_name' => $request->customer_name,
                         'customer_email' => $userEmail,
-                        // 'customer_email' => $request->customer_email,
                     ],
                     // 'enabled_payments' => ['bca_va', 'bni_va', 'bri_va'],
                 ];

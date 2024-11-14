@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\TransactionReportController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\DonateController;
@@ -85,9 +86,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('transactions', '\App\Http\Controllers\Admin\TransactionController');
     Route::resource('users', '\App\Http\Controllers\Admin\UserController');
     Route::resource('media-socials', '\App\Http\Controllers\Admin\MediaSocialController');
+    Route::resource('donation-price', '\App\Http\Controllers\Admin\DonationPriceController');
     // Route::resource('navbar-contents', '\App\Http\Controllers\Admin\NavbarContentController');
     // Route::resource('footer-contents', '\App\Http\Controllers\Admin\FooterContentController');
     Route::resource('gallery', '\App\Http\Controllers\Admin\GalleryController');
+
+
+    // Route::resource('transaction-report', '\App\Http\Controllers\Admin\GalleryController');
+    Route::get('/transaction-report', [TransactionReportController::class, 'index'])->name('transaction-report');
+    Route::get('/transaction-report-pdf', [TransactionReportController::class, 'pdf'])->name('transaction-report-pdf');
 });
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

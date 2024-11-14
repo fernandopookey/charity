@@ -27,3 +27,8 @@ function dateFormat($date, $format = 'Y-MM-DD')
 {
     return \Carbon\Carbon::parse($date)->isoFormat($format);
 }
+
+function NowDate($format = 'Y-MM-DD')
+{
+    return  $nowDate = \Carbon\Carbon::now()->tz('Asia/Jakarta')->isoFormat($format);
+}

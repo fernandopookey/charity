@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\About;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        $data = [
+            'title'         => '',
+            'about'         => About::first(),
+            'content'       => 'auth/login'
+        ];
+
+        return view('admin.layout.second-wrapper', $data);
+
+        // return view('auth.login');
     }
 
     /**

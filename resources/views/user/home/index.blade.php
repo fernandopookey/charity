@@ -69,7 +69,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="section_title text-center mb-55">
-                    <h3><span>Panggilan Hati</span></h3>
+                    <h3><span>Visi & Misi</span></h3>
                 </div>
             </div>
         </div>
@@ -79,13 +79,16 @@
                     <div class="single_reson">
                         <div class="thum">
                             <div class="thum_1">
-                                <img src="{{ Storage::url($helpReason->image ?? '') }}" alt="">
+                                <img src="{{ Storage::url($helpReason->image ?? '') }}" alt=""
+                                    style="height: 400px; width: 380px; object-fit: cover">
                             </div>
                         </div>
                         <div class="help_content">
-                            <h4>{{ \Illuminate\Support\Str::limit($helpReason->title, 10) }}</h4>
-                            <p>{{ \Illuminate\Support\Str::limit($helpReason->description, 10) }}</p>
-                            <a href="#" class="read_more">Read More</a>
+                            {{-- <h4>{{ \Illuminate\Support\Str::limit($helpReason->title, 10) }}</h4>
+                            <p>{{ \Illuminate\Support\Str::limit($helpReason->description, 10) }}</p> --}}
+                            <h4>{{ $helpReason->title }}</h4>
+                            <p>{{ $helpReason->description }}</p>
+                            {{-- <a href="#" class="read_more">Read More</a> --}}
                         </div>
                     </div>
                 </div>
@@ -151,13 +154,13 @@
 <div class="container">
     <div class="latest_activites_area">
         <div class=" video_bg_1 video_activite  d-flex align-items-center justify-content-center"
-            style="background-color: #FF0055">
+            style="background-color: #ffffff">
             {{-- <a class="popup-video" href="https://www.youtube.com/watch?v=MG3jGHnBVQs">
             <i class="flaticon-ui"></i>
         </a> --}}
             <div class="video-container" style="position: relative; display: inline-block;">
                 <img src="{{ Storage::url($about->logo ?? '') }}" class="lazyload"
-                    style="width: 155px; height: 180px; object-fit: cover; margin-top: 50px;" alt="image">
+                    style="width: 300px; height: 330px; object-fit: cover; margin-top: 50px;" alt="image">
             </div>
         </div>
         <div class="container">
@@ -501,7 +504,7 @@
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
-            <div class="modal-body">
+            <div class="modal-body text-center">
                 <img src="" id="modalImage" style="width: 500px; height: 500px; object-fit: cover;"
                     class="img-fluid" alt="Gallery Image">
             </div>
