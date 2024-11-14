@@ -4,39 +4,31 @@
             <div class="card">
                 <div class="row">
                     <div class="col-xl-12">
-                        <a href="{{ route('users.create') }}" class="btn btn-primary"
+                        <a href="{{ route('donation-price.create') }}" class="btn btn-primary"
                             style="margin-top: 20px; margin-left: 20px; margin-bottom: 20px;">Create</a>
                     </div>
                 </div>
                 <div class="card-body">
-                    {{-- <h5 class="card-title">Datatables</h5> --}}
 
                     <!-- Table with stripped rows -->
                     <table class="table datatable">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th>Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($prices as $price)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->role }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('users.edit', $user->id) }}"
+                                    <td>{{ rupiahFormat($price->price) }}</td>
+                                    <td>
+                                        {{-- <a href="{{ route('donation-price.edit', $price->id) }}"
                                             class="btn btn-outline-warning btn-sm w-70"><i class="fa fa-pencil"
-                                                aria-hidden="true"></i></a>
-                                        <a href="{{ route('users.show', $user->id) }}"
-                                            class="btn btn-outline-warning btn-sm w-70 mt-1"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></a>
-                                        <form action="{{ route('users.destroy', $user->id) }}"
+                                                aria-hidden="true"></i></a> --}}
+                                        <form action="{{ route('donation-price.destroy', $price->id) }}"
                                             onclick="return confirm('Delete Data ? ')" method="POST">
                                             @method('delete')
                                             @csrf
