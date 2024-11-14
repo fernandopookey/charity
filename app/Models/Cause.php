@@ -32,27 +32,27 @@ class Cause extends Model
         return $this->hasMany(Payment::class)->whereIn('status', ['capture', 'settlement']);
     }
 
-    // public static function getCauseList($id)
-    // {
-    //     $sql = "SELECT caus.id, caus.title, caus.goal, caus.description, caus.status AS visibility_status, caus.days, caus.created_at,
-    //    DATE_ADD(caus.created_at, INTERVAL caus.days DAY) AS expired_date,
+    public static function getCauseList($id)
+    {
+        $sql = "SELECT caus.id, caus.title, caus.goal, caus.description, caus.status AS visibility_status, caus.days, caus.created_at,
+       DATE_ADD(caus.created_at, INTERVAL caus.days DAY) AS expired_date,
 
-    //    CASE 
-    //        WHEN NOW() > DATE_ADD(caus.created_at, INTERVAL caus.days DAY) THEN 'over'
-    //        WHEN NOW() BETWEEN caus.created_at AND DATE_ADD(caus.created_at, INTERVAL caus.days DAY) THEN 'Running'
-    //        ELSE 'Not Started'
-    //    END AS active_status,
+       CASE 
+           WHEN NOW() > DATE_ADD(caus.created_at, INTERVAL caus.days DAY) THEN 'over'
+           WHEN NOW() BETWEEN caus.created_at AND DATE_ADD(caus.created_at, INTERVAL caus.days DAY) THEN 'Running'
+           ELSE 'Not Started'
+       END AS active_status,
 
-    //    GREATEST(DATEDIFF(DATE_ADD(caus.created_at, INTERVAL caus.days DAY), CURDATE()), 0) AS left_days,
+       GREATEST(DATEDIFF(DATE_ADD(caus.created_at, INTERVAL caus.days DAY), CURDATE()), 0) AS left_days,
 
-    //    (SELECT SUM(price) FROM payments WHERE payments.cause_id = caus.id) AS raised
+       (SELECT SUM(price) FROM payments WHERE payments.cause_id = caus.id) AS raised
 
-    // FROM causes AS caus" . ($id ? " WHERE caus.id = '$id'" : '');
+    FROM causes AS caus" . ($id ? " WHERE caus.id = '$id'" : '');
 
-    //     $activeMemberRegistrations = DB::select($sql);
+        $activeMemberRegistrations = DB::select($sql);
 
-    //     return $activeMemberRegistrations;
-    // }
+        return $activeMemberRegistrations;
+    }
 
     // public static function getCauseList($id)
     // {
