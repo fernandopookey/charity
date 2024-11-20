@@ -16,14 +16,12 @@ class PaymentController extends Controller
 {
     public function create(Request $request, $id)
     {
-        // dd($request);
         $userData = Auth::user();
         $userName = ($userData) ? $userData->name : 'Anonymous';
         $userEmail = ($userData) ? $userData->email : 'Anonymous';
         $causeData = Cause::find($id);
 
         $payments = $causeData->causePayment;
-        // dd($payments);
         $prices = [];
         foreach ($payments as $payment) {
             $prices[] = $payment->price;
@@ -62,7 +60,8 @@ class PaymentController extends Controller
                         [
                             'price' => $replacePrice,
                             'quantity' => 1,
-                            'name' => $causeData->title,
+                            // 'name' => $causeData->title,
+                            'name' => $causeData->id,
                         ],
                     ],
                     'customer_details' => [
@@ -82,7 +81,8 @@ class PaymentController extends Controller
                         [
                             'price' => $replacePrice,
                             'quantity' => 1,
-                            'name' => $causeData->title,
+                            // 'name' => $causeData->title,
+                            'name' => $causeData->id,
                         ],
                     ],
                     'customer_details' => [
@@ -92,6 +92,7 @@ class PaymentController extends Controller
                     // 'enabled_payments' => ['bca_va', 'bni_va', 'bri_va'],
                 ];
             }
+            // dd($params['item_details']);
 
             $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
 
