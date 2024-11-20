@@ -1,0 +1,857 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 14 Nov 2024 pada 14.11
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `charity`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `abouts`
+--
+
+CREATE TABLE `abouts` (
+  `id` int(2) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `address` text NOT NULL,
+  `description` text NOT NULL,
+  `logo` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `abouts`
+--
+
+INSERT INTO `abouts` (`id`, `title`, `email`, `phone`, `address`, `description`, `logo`, `created_at`, `updated_at`) VALUES
+(2, 'Yayasan HMI', 'hmi@gmail.com', '085151808015', 'Jl. Semarang Raya', 'Kami adalah yayasan HMI', 'assets/about/EFnbj2CuWluUq6FYHWpCITtK0s2TwVDYBSIOOQ5I.png', '2024-10-22 16:41:53', '2024-10-25 08:36:33');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cache`
+--
+
+CREATE TABLE `cache` (
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('nandopookey@gmail.com|127.0.0.1', 'i:1;', 1728750134),
+('nandopookey@gmail.com|127.0.0.1:timer', 'i:1728750134;', 1728750134),
+('prabowo@gmail.com|127.0.0.1', 'i:1;', 1731377585),
+('prabowo@gmail.com|127.0.0.1:timer', 'i:1731377585;', 1731377585);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cache_locks`
+--
+
+CREATE TABLE `cache_locks` (
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `causes`
+--
+
+CREATE TABLE `causes` (
+  `id` int(11) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `goal` int(20) NOT NULL,
+  `photos` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `status` varchar(10) NOT NULL,
+  `days` int(10) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `causes`
+--
+
+INSERT INTO `causes` (`id`, `title`, `goal`, `photos`, `description`, `status`, `days`, `created_at`, `updated_at`) VALUES
+(1, 'Bantu Mbah Saiful Berjuang', 500000, NULL, 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '0', 28, '2024-10-13 10:44:56', '2024-11-06 07:01:03'),
+(2, '6 Tahun Nahda Berjuang Lawan Cerebral Palsy', 770000, NULL, 'Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '0', 10, '2024-10-13 12:37:38', '2024-10-30 06:36:25'),
+(4, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 655000, NULL, 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', '0', 15, '2024-10-14 08:33:12', '2024-10-31 12:42:03'),
+(5, 'Kanker Mata! Tolong Anak Ojol Butuh Operasi', 700000, NULL, 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).', '1', 30, '2024-10-14 08:37:07', '2024-10-14 09:13:08'),
+(8, 'SEDEKAH JUMAT: Renovasi Sekolah Nyaris Roboh!', 1000000, NULL, 'ontrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.', '0', 10, '2024-10-14 09:06:06', '2024-10-31 12:42:10'),
+(9, 'Selamatkan Generasi Penerus Kita!', 555000, NULL, 'Kesejahteraan anak-anak adalah kunci bagi masa depan yang lebih baik. Dengan berdonasi melalui yayasan ini, Anda membantu menyediakan kebutuhan dasar seperti makanan bergizi, perawatan kesehatan, dan pendidikan untuk anak-anak yang membutuhkan. Jadilah bagian dari perubahan yang berarti.', '1', 30, '2024-10-28 15:02:44', '2024-11-14 13:06:28'),
+(10, 'Bersama Kita Bisa: Program Peduli Pendidikan Anak-Anak', 654000, NULL, 'Mari dukung pendidikan anak-anak kurang mampu melalui program donasi yayasan kami. Setiap rupiah yang Anda sumbangkan akan digunakan untuk membiayai sekolah, buku, dan perlengkapan belajar anak-anak yang membutuhkan. Bersama, kita dapat membuat perubahan nyata dalam kehidupan mereka.', '1', 20, '2024-10-28 15:10:22', '2024-11-14 13:06:08');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cause_images`
+--
+
+CREATE TABLE `cause_images` (
+  `id` int(11) NOT NULL,
+  `cause_id` int(10) NOT NULL,
+  `image` text DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `cause_images`
+--
+
+INSERT INTO `cause_images` (`id`, `cause_id`, `image`, `created_at`, `updated_at`) VALUES
+(6, 5, 'uploads/products/0-1728993993.png', '2024-10-15 19:06:33', '2024-10-15 19:06:33'),
+(20, 4, 'uploads/products/0-1729100264.jpg', '2024-10-17 00:37:44', '2024-10-17 00:37:44'),
+(32, 2, 'uploads/products/0-1729757041.png', '2024-10-24 15:04:01', '2024-10-24 15:04:01'),
+(33, 2, 'uploads/products/1-1729757041.png', '2024-10-24 15:04:01', '2024-10-24 15:04:01'),
+(34, 8, 'uploads/products/0-1729757062.jpeg', '2024-10-24 15:04:22', '2024-10-24 15:04:22'),
+(35, 8, 'uploads/products/1-1729757062.jpeg', '2024-10-24 15:04:22', '2024-10-24 15:04:22'),
+(39, 1, 'uploads/products/0-1730110212.png', '2024-10-28 17:10:12', '2024-10-28 17:10:12'),
+(40, 1, 'uploads/products/0-1730110230.mp4', '2024-10-28 17:10:30', '2024-10-28 17:10:30'),
+(41, 1, 'uploads/products/0-1730465234.mp4', '2024-11-01 19:47:14', '2024-11-01 19:47:14'),
+(42, 1, 'uploads/products/0-1730475806.png', '2024-11-01 22:43:26', '2024-11-01 22:43:26'),
+(43, 1, 'uploads/products/0-1730511832.png', '2024-11-02 08:43:52', '2024-11-02 08:43:52'),
+(44, 9, 'uploads/products/0-1730960377.png', '2024-11-07 13:19:37', '2024-11-07 13:19:37'),
+(45, 9, 'uploads/products/0-1730960387.png', '2024-11-07 13:19:47', '2024-11-07 13:19:47');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `contacts`
+--
+
+CREATE TABLE `contacts` (
+  `id` int(20) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `message` text NOT NULL,
+  `subject` varchar(250) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `contacts`
+--
+
+INSERT INTO `contacts` (`id`, `name`, `email`, `message`, `subject`, `created_at`, `updated_at`) VALUES
+(1, 'Joko Widodo', 'joko@gmail.com', 'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem', 'Bantuan', '2024-10-23 16:36:25', '2024-10-23 16:36:25'),
+(2, 'frege', 'grgre@gmail.com', 'hthrtjrtjffahfsjtjarhar', 'htrh', '2024-10-23 16:37:18', '2024-10-23 16:37:18');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `donations`
+--
+
+CREATE TABLE `donations` (
+  `id` int(11) NOT NULL,
+  `price` int(50) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `donations`
+--
+
+INSERT INTO `donations` (`id`, `price`, `created_at`, `updated_at`) VALUES
+(1, 5000, '2024-11-11 03:32:40', '2024-11-11 03:32:40'),
+(3, 10000, '2024-11-11 03:34:08', '2024-11-11 03:34:08'),
+(4, 15000, '2024-11-11 03:34:14', '2024-11-11 03:34:14'),
+(6, 20000, '2024-11-11 04:26:04', '2024-11-11 04:26:04');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `failed_jobs`
+--
+
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `footer_contents`
+--
+
+CREATE TABLE `footer_contents` (
+  `id` int(1) NOT NULL,
+  `phone_number` varchar(50) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `address` text NOT NULL,
+  `description` text NOT NULL,
+  `logo` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `footer_contents`
+--
+
+INSERT INTO `footer_contents` (`id`, `phone_number`, `email`, `address`, `description`, `logo`, `created_at`, `updated_at`) VALUES
+(2, '085254143531', 'nandopookey@gmail.com', 'Jl. Margosari 2, Kota Salatiga, Jawa Tengah', 'Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan Yayasan.', 'assets/footer-content/fWoujJdYGBP3oeYO7tC4rdwSggIA5uDuAjlQVKGK.png', '2024-10-20 17:20:55', '2024-10-20 11:57:49');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `galleries`
+--
+
+CREATE TABLE `galleries` (
+  `id` int(5) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `image` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `galleries`
+--
+
+INSERT INTO `galleries` (`id`, `title`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Gallery 1', 'assets/gallery/eq61hzWFGxc03mdRjnsMhJaTG1jzQN1BSnV8Gffi.jpg', '2024-10-24 02:57:15', '2024-10-24 02:57:15'),
+(3, 'Image 3 Edit', 'assets/gallery/IiuSSkOhVIOTaM9xyNTb54PIaAVvAMfQ4OBKRv0w.jpg', '2024-10-24 02:57:37', '2024-10-24 03:00:42'),
+(4, 'fefe', 'assets/gallery/jRYF8Dj4QDFuwJAjYUxKlZbfxw78oBGJJ5a99ftp.mp4', '2024-11-07 07:40:09', '2024-11-07 07:40:09');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `help_reasons`
+--
+
+CREATE TABLE `help_reasons` (
+  `id` int(2) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `description` text NOT NULL,
+  `image` text DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `help_reasons`
+--
+
+INSERT INTO `help_reasons` (`id`, `title`, `description`, `image`, `created_at`, `updated_at`) VALUES
+(12, 'Mewujudkan Rasa Kemanusiaan dan Kepedulian Sosial', 'Bantuan kepada panti asuhan mencerminkan nilai-nilai kemanusiaan yang luhur.', 'assets/help-reason/vkNFywDmilDjjIpSMh8QNNvhgX5osnBO0KhAf4Yt.jpg', '2024-10-16 07:52:53', '2024-11-11 05:55:48'),
+(13, 'Menanamkan Nilai-Nilai Empati dan Kebersamaan', 'Membantu panti asuhan mengajarkan kita untuk lebih empati dan peduli terhadap orang lain.', 'assets/help-reason/UPnE5STxgSKyErYbMZaENjJvAyJX2UJd8RVuK4zq.jpg', '2024-10-16 07:53:20', '2024-11-11 05:56:00'),
+(15, 'Meningkatkan Kualitas Hidup Anak-Anak Kurang Beruntung', 'Membantu yayasan panti asuhan adalah salah satu cara untuk memberikan kesempatan kepada anak-anak yatim piatu untuk memiliki masa depan yang lebih baik.', 'assets/help-reason/V1E3TnxcIeyM4HlyFOJC0l6wpsKxNc7emUjTyxv0.jpg', '2024-10-16 11:01:33', '2024-11-11 05:56:36');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `home_videos`
+--
+
+CREATE TABLE `home_videos` (
+  `id` int(11) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `description` text DEFAULT NULL,
+  `video` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `home_videos`
+--
+
+INSERT INTO `home_videos` (`id`, `title`, `description`, `video`, `created_at`, `updated_at`) VALUES
+(1, 'Test abangkue', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 'home-video/I8H4sgZrwklVZbq8ZNaybkgmMvQLAR1PVBCmGfvA.mp4', '2024-10-17 09:02:56', '2024-10-17 02:23:15');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `job_batches`
+--
+
+CREATE TABLE `job_batches` (
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `media_socials`
+--
+
+CREATE TABLE `media_socials` (
+  `id` int(5) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `link` varchar(250) NOT NULL,
+  `icon` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `media_socials`
+--
+
+INSERT INTO `media_socials` (`id`, `title`, `link`, `icon`, `created_at`, `updated_at`) VALUES
+(1, 'Instagrammer', 'https://www.instagram.com/', 'assets/media-socials/2fmcsWMya8MqFKzVPM329PGtHLpxPYSUZwc512ne.png', '2024-10-20 09:47:07', '2024-10-20 09:55:58'),
+(2, 'Facebook', 'https://www.facebook.com/', 'assets/media-socials/ExEUp9w8NvKQWKO9D07f0A2KdswqHF9VrqkCDwWA.png', '2024-10-20 09:47:34', '2024-10-20 09:47:34'),
+(3, 'Twitter', 'https://x.com', 'assets/media-socials/NXyL6MOU385t7x56zddMARdNdDa6i5eyaYjglKWz.png', '2024-10-20 09:48:02', '2024-10-20 09:48:02');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '0001_01_01_000000_create_users_table', 1),
+(2, '0001_01_01_000001_create_cache_table', 1),
+(3, '0001_01_01_000002_create_jobs_table', 1),
+(4, '2024_10_12_112145_create_google_id', 2),
+(5, '2024_10_17_031631_create_payments_table', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `navbar_contents`
+--
+
+CREATE TABLE `navbar_contents` (
+  `id` int(2) NOT NULL,
+  `phone_number` varchar(250) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `logo` text NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `navbar_contents`
+--
+
+INSERT INTO `navbar_contents` (`id`, `phone_number`, `email`, `logo`, `created_at`, `updated_at`) VALUES
+(1, '085254143531', 'nandopookey@gmail.com', 'navbar-content/Bb5V9mrvU1k8A3L4BEimwUIMTXeJ8F5sQHgxzz6D.png', '0000-00-00 00:00:00', '2024-10-20 08:33:52');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `password_reset_tokens`
+--
+
+CREATE TABLE `password_reset_tokens` (
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int(20) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `price` double NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `customer_email` varchar(255) NOT NULL,
+  `checkout_link` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `cause_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `payments`
+--
+
+INSERT INTO `payments` (`id`, `order_id`, `status`, `price`, `item_name`, `customer_name`, `customer_email`, `checkout_link`, `created_at`, `updated_at`, `cause_id`) VALUES
+(10, '9e6fa5d6-b08c-4b06-9645-f43b77699193', 'capture', 150000, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/1adbc764-3639-46ec-9956-698354b0a8b2', '2024-10-19 00:50:03', '2024-10-19 05:21:01', 4),
+(11, 'a50f75ce-714a-41a7-9360-1e49b62b4ed0', 'pending', 245555, '6 Tahun Nahda Berjuang Lawan Cerebral Palsy', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/f8c16f8c-dea3-48d5-878a-aad76bfc8d71', '2024-10-19 03:12:43', '2024-10-19 03:12:43', 2),
+(13, 'd69a6b47-e547-45b3-a0a1-e8c8aa321486', 'failed', 20000, 'SEDEKAH JUMAT: Renovasi Sekolah Nyaris Roboh!', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/1f10d635-58df-420c-98aa-977a220af670', '2024-10-19 03:23:12', '2024-10-19 05:19:51', 8),
+(14, 'ee5e71b5-1d5a-4781-93bb-d3d96035efa2', 'pending', 20000, 'SEDEKAH JUMAT: Renovasi Sekolah Nyaris Roboh!', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/b949d52f-d387-476a-89f8-21a9993f1830', '2024-10-19 03:27:13', '2024-10-19 03:27:13', 8),
+(22, '08c70ac0-b2f4-45db-8154-b28011187ac0', 'expire', 30000, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/f70a1c0f-c5a1-4061-857a-23e5d14cea3f', '2024-10-19 11:03:14', '2024-10-19 11:03:14', 4),
+(23, 'd92c145e-f2ac-41b9-870d-6bef12b4ce05', 'pending', 10000, 'Kanker Mata! Tolong Anak Ojol Butuh Operasi', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/b39f6aff-3f15-42cf-8dad-9714d8aed54a', '2024-10-22 09:15:49', '2024-10-22 09:15:49', 5),
+(24, '9b3fb155-a58a-4715-9928-c3aad4907e70', 'pending', 100000, '6 Tahun Nahda Berjuang Lawan Cerebral Palsy', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/42396a8b-cd93-4bdb-a3d2-7774db7ae2ba', '2024-10-22 11:26:11', '2024-10-22 11:26:11', 2),
+(25, '9d21702b-7a7f-4c89-8966-6d23ea896ae6', 'pending', 20000, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/1c540a5c-3f7b-4741-846d-a9100dc20479', '2024-10-24 01:43:43', '2024-10-24 01:43:43', 4),
+(26, '376febf9-1478-43c4-9957-19a7f33cb624', 'settlement', 400765, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/f3bf234a-8c12-4690-b8a4-70d117f03dc3', '2024-10-24 01:50:49', '2024-10-24 01:50:49', 4),
+(28, '489b8f0f-ab88-4790-8b6a-91ff8e89c068', 'pending', 10000, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/e91fb34f-29a2-448d-997d-f4fd56bb3681', '2024-10-27 22:27:43', '2024-10-27 22:27:43', 4),
+(44, '021532d6-afc2-4a08-85d2-9f04ed20725a', 'pending', 100000, 'btrytjt', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.sandbox.midtrans.com/snap/v4/redirection/3fdb3e75-7001-41b2-a346-7d7af6ccb621', '2024-10-29 04:15:12', '2024-10-29 04:15:12', 10),
+(55, '57becef1-948b-47e5-9348-3f62bb74147a', 'pending', 400000, 'Bantu Mbah Saiful Berjuang', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/65e76742-5b01-4c92-b953-ae9656251033', '2024-10-29 19:15:57', '2024-10-29 19:15:57', 1),
+(56, '39dd5c77-9cd0-460a-b0f5-e2131218b1ce', 'pending', 100000, '6 Tahun Nahda Berjuang Lawan Cerebral Palsy', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/2ed6d6da-854b-4fba-8a1c-68ec02905a75', '2024-10-29 19:46:54', '2024-10-29 19:46:54', 2),
+(59, '8f86bf46-de87-4377-9976-c8d26ca89416', 'pending', 690000, 'Kanker Mata! Tolong Anak Ojol Butuh Operasi', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/b2b03996-4956-4d69-9313-8d513e9dcc8d', '2024-10-29 23:02:41', '2024-10-29 23:02:41', 5),
+(60, '3bac6084-3e83-4624-a29e-34d4d75a8be3', 'pending', 10000, 'Bantu Mbah Saiful Berjuang', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/1554406d-df32-47ed-a341-41c3ea77e148', '2024-11-05 06:16:03', '2024-11-05 06:16:03', 1),
+(61, 'edd4649b-6700-4210-8da3-315d74718ae8', 'pending', 10000, 'Sembako Habis, 80 Anak Yatim Terancam Tdk Makan', 'Anonymous', 'Anonymous', 'https://app.sandbox.midtrans.com/snap/v4/redirection/976c1d3f-6448-4c7a-b436-9d1ee93e82e4', '2024-11-05 23:58:23', '2024-11-05 23:58:23', 4),
+(70, 'c93413c5-1e40-4205-93a9-17f0545b5050', 'settlement', 10000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/c71aa171-81c8-47e5-9862-2a371cc2480d', '2024-11-06 19:20:49', '2024-11-06 19:20:49', 9),
+(71, '71e54b55-c7f3-48e0-ad35-9dd37bf97d3c', 'capture', 20000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/1ce41e17-0238-4430-9e26-f2b776dfce69', '2024-11-06 19:31:55', '2024-11-06 19:31:55', 9),
+(72, '80fcba84-b25f-47cf-8fcb-ca1ec50dea26', 'pending', 20000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/6863ee9b-897a-41ce-a371-1f30a828203b', '2024-11-06 19:36:32', '2024-11-06 19:36:32', 9),
+(73, 'd18e2089-df3d-4c62-b9f8-f9148360e080', 'pending', 20000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/f5683695-d463-4095-ab50-fcdeb6c9efb7', '2024-11-06 19:36:34', '2024-11-06 19:36:34', 9),
+(74, '228daeac-2c22-4f66-b96a-e088f1762cc0', 'pending', 20000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/6443d2d5-c0b1-407d-a78d-73ac83357cc3', '2024-11-06 19:36:35', '2024-11-06 19:36:35', 9),
+(75, '1d0f3c6c-d494-416c-9381-5438c21d3289', 'pending', 20000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/0676e1d5-94c1-4b2a-92c9-e5cd9f78e55c', '2024-11-06 19:36:37', '2024-11-06 19:36:37', 9),
+(76, 'a19aa1be-ea05-41de-b3a8-78646664cb7a', 'pending', 30000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/11777d48-ab21-468f-affc-833ba4d97e16', '2024-11-06 19:36:39', '2024-11-06 19:36:39', 9),
+(77, '1683d029-a2ce-44c0-b4a5-e9e65dd0dfb7', 'pending', 20000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/949c5638-058c-4960-a5a8-c8d0f19da7ba', '2024-11-07 02:44:49', '2024-11-07 02:44:49', 9),
+(78, 'f2a0e5f8-a3ec-49b4-95f0-a2b927215951', 'pending', 150000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/818ccdc9-2a86-4dac-b49a-b0ebe9a01edf', '2024-11-07 02:47:30', '2024-11-07 02:47:30', 9),
+(79, 'fc5825d0-c892-4868-b198-d1ba6df37fa2', 'pending', 20000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/2d41ed2f-26ef-4551-b378-8848e126b5fe', '2024-11-07 05:02:33', '2024-11-07 05:02:33', 9),
+(80, '3d15c96f-1a18-4729-92d3-157fa8f13d37', 'pending', 20000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/f75c2259-2555-4703-8331-ed00593e5226', '2024-11-07 05:05:28', '2024-11-07 05:05:28', 9),
+(81, '4b951a1c-940e-4fb4-98d0-e1428dba603a', 'pending', 30000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/9da0e241-cf30-4d45-aa5b-730fcb2ad493', '2024-11-07 05:11:23', '2024-11-07 05:11:23', 9),
+(82, '7f0d8dfb-343d-40e6-a657-cbc4656ddee7', 'pending', 150000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/8ac7525b-918c-48f1-a89d-d29a1880cea7', '2024-11-07 06:23:51', '2024-11-07 06:23:51', 9),
+(83, '009eaff6-8a0c-4067-a5e0-85c441b5e61c', 'pending', 10000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/7402e646-5ae0-4aab-8110-c1c9e87baccd', '2024-11-10 09:27:52', '2024-11-10 09:27:52', 9),
+(84, '1cf7b2e3-83e3-4d44-9d06-779d63e29c9c', 'pending', 1000, 'rhesktjtdgf', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/7670694d-07e6-4493-8afb-4c650cb0f3bc', '2024-11-10 09:29:23', '2024-11-10 09:29:23', 9),
+(85, '0e2b4e48-896c-4ba2-b713-1c9fba1e41c1', 'settlement', 20000, 'btrytjt', 'Nando Pookey', 'nandopookey@gmail.com', 'https://app.midtrans.com/snap/v4/redirection/bd0e8e21-09e4-4667-8d12-27cc95582632', '2024-11-10 21:28:41', '2024-11-10 21:28:41', 10),
+(86, '0d287f3f-2f53-4cf8-b01e-aadb220c6c1c', 'settlement', 15000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/125be28e-9726-4b72-9157-f15d779e9a53', '2024-11-12 01:14:28', '2024-11-12 01:14:28', 9),
+(87, 'd36a50ee-010b-4fc7-9be5-064d0886dbb6', 'settlement', 5000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/6dbb3180-b11f-4b95-8c00-b763b7eb79a8', '2024-11-12 01:15:08', '2024-11-12 01:15:08', 9),
+(88, '0269fdd8-befb-44d7-99e1-fbaff9805c5d', 'pending', 40000, 'rhesktjtdgf', 'Anonymous', 'Anonymous', 'https://app.midtrans.com/snap/v4/redirection/1316ceff-8ca1-41f4-b858-df3a657b5403', '2024-11-12 01:48:08', '2024-11-12 01:48:08', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('I4r2OjSND8KGLKEHilLIGGGcbFDHMTUdavMezaHm', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiOGVVU3JqWXR6ck1mMU1NTFFhUXBqeng1TzJMT0FReURxQzJxbDBBRSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2Rhc2hib2FyZCI7fXM6NToic3RhdGUiO3M6NDA6ImpVNHFOVnllTENpQ1FTWElTR3NjSWhlN0hkTTZISXBNYkpoYUREbXciO3M6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjMzOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXV0aC9nb29nbGUiO319', 1731557274),
+('ILHuZA3h9S4cwm8gD5NE0F9J3rqNeNxft3pvExPl', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiSkRISWdBejRvS1prTkZBT1dTWkNXQ2xlelhraXF1Mm9yajc5d1BKTyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6NToiYWxlcnQiO2E6MDp7fX0=', 1731589597),
+('LL96z44QVbuMhg3HwrJ0fTZM6D0IUS4pko5yUmQF', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYjlJVVdmNFJkbXVETHd1eTlXdWQ5MWpPeHB6cG1aOEVId3NHY0RpYiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kb25hdGUvZGV0YWlsLzkiO31zOjU6ImFsZXJ0IjthOjA6e319', 1731401288);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(5) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `sub_title` varchar(250) NOT NULL,
+  `description` text NOT NULL,
+  `image` text DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `title`, `sub_title`, `description`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Test', 'Ubah subtitle', 'ubah deskripsi', 'sliders/q2cVh9qoveezBUj8JzweLqRCZ45oWpreKCjyTCHc.jpg', '2024-10-16 11:24:45', '2024-10-16 05:16:19');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `id` int(20) NOT NULL,
+  `cause_id` int(10) NOT NULL,
+  `user_id` int(10) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `users`
+--
+
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(15) NOT NULL DEFAULT 'user',
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `google_id` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`) VALUES
+(1, 'Fernando Herman Pookey', 'nandopookey@gmail.com', 'admin', NULL, '$2y$12$vQYRWy3EMB1uVCp.ouczrOQVkaKMt3AzGqeNKK/5BmTkPpTxXeHjO', NULL, '2024-10-10 20:50:10', '2024-11-11 18:15:26', '105663213325192004771'),
+(2, 'Naruto Uzumaki', 'borusara1432@gmail.com', 'user', NULL, '$2y$12$jSMWnqy/6aKpIuICIyAIpeN1.OK2BS26ihVNYK3zYnAA8Esha8wcq', NULL, '2024-10-12 05:05:23', '2024-10-12 05:05:23', '100275713985747130548'),
+(3, 'Fernando Herman Pookey', '672017197@student.uksw.edu', 'admin', NULL, '$2y$12$NGL6XJn7nhOdGkX7Ud5p0.JV1cKfPdpsQk9HpI/5z3/nG3mDgfWaW', NULL, '2024-10-19 20:36:51', '2024-10-19 20:36:51', NULL),
+(4, 'Prabowo Subianto', 'prabowo@gmail.com', 'user', NULL, '$2y$12$xH0cuHfah071X5juA9BP2OnNJg5P1gdb4.Vz/J8uanBIb6NlT1qGW', NULL, '2024-10-19 23:34:40', '2024-10-19 23:34:40', NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `abouts`
+--
+ALTER TABLE `abouts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `cache`
+--
+ALTER TABLE `cache`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indeks untuk tabel `cache_locks`
+--
+ALTER TABLE `cache_locks`
+  ADD PRIMARY KEY (`key`);
+
+--
+-- Indeks untuk tabel `causes`
+--
+ALTER TABLE `causes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `cause_images`
+--
+ALTER TABLE `cause_images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cause_id` (`cause_id`);
+
+--
+-- Indeks untuk tabel `contacts`
+--
+ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `donations`
+--
+ALTER TABLE `donations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indeks untuk tabel `footer_contents`
+--
+ALTER TABLE `footer_contents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `galleries`
+--
+ALTER TABLE `galleries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `help_reasons`
+--
+ALTER TABLE `help_reasons`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `home_videos`
+--
+ALTER TABLE `home_videos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `jobs_queue_index` (`queue`);
+
+--
+-- Indeks untuk tabel `job_batches`
+--
+ALTER TABLE `job_batches`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `media_socials`
+--
+ALTER TABLE `media_socials`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `navbar_contents`
+--
+ALTER TABLE `navbar_contents`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `password_reset_tokens`
+--
+ALTER TABLE `password_reset_tokens`
+  ADD PRIMARY KEY (`email`);
+
+--
+-- Indeks untuk tabel `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_cause_in_payments` (`cause_id`);
+
+--
+-- Indeks untuk tabel `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indeks untuk tabel `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `transaction_fk_cause_id` (`cause_id`);
+
+--
+-- Indeks untuk tabel `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `abouts`
+--
+ALTER TABLE `abouts`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `causes`
+--
+ALTER TABLE `causes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `cause_images`
+--
+ALTER TABLE `cause_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT untuk tabel `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `donations`
+--
+ALTER TABLE `donations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `footer_contents`
+--
+ALTER TABLE `footer_contents`
+  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `galleries`
+--
+ALTER TABLE `galleries`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `help_reasons`
+--
+ALTER TABLE `help_reasons`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `home_videos`
+--
+ALTER TABLE `home_videos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `media_socials`
+--
+ALTER TABLE `media_socials`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `navbar_contents`
+--
+ALTER TABLE `navbar_contents`
+  MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+
+--
+-- AUTO_INCREMENT untuk tabel `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `cause_images`
+--
+ALTER TABLE `cause_images`
+  ADD CONSTRAINT `fk_cause_id` FOREIGN KEY (`cause_id`) REFERENCES `causes` (`id`) ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `fk_cause_in_payments` FOREIGN KEY (`cause_id`) REFERENCES `causes` (`id`) ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `transaction_fk_cause_id` FOREIGN KEY (`cause_id`) REFERENCES `causes` (`id`) ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
