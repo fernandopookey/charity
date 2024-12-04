@@ -209,16 +209,22 @@ class PaymentController extends Controller
 
     public function finish()
     {
-        return response()->json('Transaksi anda sedang diproses');
+        // return response()->json('Transaksi anda sedang diproses');
+        Alert::success('Success!', 'Terima kasih atas donasi anda!!');
+        return redirect()->route('home');
     }
 
     public function unfinish()
     {
-        return response()->json('Transaksi anda sedang diproses');
+        // return response()->json('Transaksi anda sedang diproses');
+        Alert::success('warning!', 'Terima kasih, transaksi anda sedang diproses!!');
+        return redirect()->route('home');
     }
 
     public function error()
     {
-        return response()->json('Transaksi anda gagal');
+        // return response()->json('Transaksi anda gagal');
+        Alert::success('error!', 'Mohon maaf, transaksi anda gagal!!');
+        return redirect()->route('home');
     }
 }
