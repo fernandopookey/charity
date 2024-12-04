@@ -44,7 +44,7 @@
                             </div>
                             <div style="margin-bottom: 30px">
                                 <small><b style="color: rgb(106, 105, 105)">Sisa Hari:
-                                        5</b></small>
+                                        {{ $causeById->left_days }}</b></small>
                             </div>
                             <h4>{{ $causeById->title }}</h4>
                             <p style="font-size: 20px;">{{ $causeById->description }}</p>
