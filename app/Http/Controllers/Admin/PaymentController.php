@@ -109,7 +109,9 @@ class PaymentController extends Controller
             ])->post('https://app.midtrans.com/snap/v1/transactions', $params);
 
             if ($response->failed()) {
-                return response()->json(['error' => 'Payment request failed', 'details' => $response->body()], 500);
+                // return response()->json(['error' => 'Payment request failed', 'details' => $response->body()], 500);
+                Alert::success('error!', 'Mohon maaf, transaksi anda gagal!!');
+                return redirect()->back();
             }
 
             $response = json_decode($response->body());
@@ -150,7 +152,12 @@ class PaymentController extends Controller
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => "Basic $auth",
-        ])->get("https://api.sandbox.midtrans.com/v2/{$request->order_id}/status");
+        ])->get("https://api.midtrans.com/v2/{$request->order_id}/status");
+
+        // $response = Http::withHeaders([
+        //     'Content-Type' => 'application/json',
+        //     'Authorization' => "Basic $auth",
+        // ])->get("https://api.sandbox.midtrans.com/v2/{$request->order_id}/status");
 
         $response = json_decode($response->body());
 
@@ -186,24 +193,19 @@ class PaymentController extends Controller
 
     public function finish()
     {
-        dd("Tes");
-        // return response()->json('Transaksi anda sedang diproses');
-        // Alert::success('Success!', 'Terima kasih atas donasi anda!!');
+        Alert::success('Success!', 'Terima kasih atas donasi anda!!');
         return redirect()->route('donate');
-        // return redirect()->back();
     }
 
     public function unfinish()
     {
-        // return response()->json('Transaksi anda sedang diproses');
-        Alert::success('warning!', 'Terima kasih, transaksi anda sedang diproses!!');
+        Alert::warning('warning!', 'Transaksi anda sedang diproses!!');
         return redirect()->route('donate');
     }
 
     public function error()
     {
-        // return response()->json('Transaksi anda gagal');
-        Alert::success('error!', 'Mohon maaf, transaksi anda gagal!!');
+        Alert::error('failed!', 'Mohon maaf, transaksi anda gagal!!');
         return redirect()->route('donate');
     }
 }
