@@ -14,26 +14,6 @@ use App\Http\Controllers\User\DonateController;
 use App\Http\Controllers\User\HomeController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/', function () {
-//     return view('user/home/index');
-// });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard2');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/dashboard2', function () {
-//     return view('dashboard2');
-// })->middleware(['auth', 'verified'])->name('dashboard2');
-
-// Route::get('/test', function () {
-//     return view('user.home.index2');
-// });
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/donate/detail/{id}', [DonateController::class, 'show'])->name('user-cause-detail');
 
@@ -44,9 +24,6 @@ Route::get('contact', [ContactController::class, 'index'])->name('user-contact')
 Route::post('contact', [ContactController::class, 'store'])->name('send-message');
 Route::get('our-gallery', [GalleryController::class, 'userGallery'])->name('our-gallery');
 
-
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
 // ==========================================================================================================================================================
 // ADMIN
 // ==========================================================================================================================================================
@@ -56,19 +33,7 @@ Route::get('/payment/finish', [PaymentController::class, 'finish'])->name('finis
 Route::get('/payment/unfinish', [PaymentController::class, 'unfinish'])->name('unfinish');
 Route::get('/payment/error', [PaymentController::class, 'error'])->name('error');
 
-
-// Route::prefix('api')->middleware('api')->group(function () {
-//     Route::post('/payments', [PaymentController::class, 'create']);
-// });
-
-// Route::middleware([])->group(function () {
-//     Route::post('/payments', [PaymentController::class, 'create']);
-// });
-
 Route::middleware('api')->post('/payments/{id}', [PaymentController::class, 'create'])->name('api-payments');
-
-
-
 
 // ADMIN
 Route::group(['middleware' => ['auth', 'admin']], function () {
@@ -87,12 +52,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('users', '\App\Http\Controllers\Admin\UserController');
     Route::resource('media-socials', '\App\Http\Controllers\Admin\MediaSocialController');
     Route::resource('donation-price', '\App\Http\Controllers\Admin\DonationPriceController');
-    // Route::resource('navbar-contents', '\App\Http\Controllers\Admin\NavbarContentController');
-    // Route::resource('footer-contents', '\App\Http\Controllers\Admin\FooterContentController');
     Route::resource('gallery', '\App\Http\Controllers\Admin\GalleryController');
 
-
-    // Route::resource('transaction-report', '\App\Http\Controllers\Admin\GalleryController');
     Route::get('/transaction-report', [TransactionReportController::class, 'index'])->name('transaction-report');
     Route::get('/transaction-report-pdf', [TransactionReportController::class, 'pdf'])->name('transaction-report-pdf');
 });

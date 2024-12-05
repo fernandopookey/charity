@@ -143,43 +143,6 @@ class PaymentController extends Controller
         }
     }
 
-    // public function webhook(Request $request)
-    // {
-    //     $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
-
-    //     $response = Http::withHeaders([
-    //         'Content-Type' => 'application/json',
-    //         'Authorization' => "Basic $auth",
-    //     ])->get("https://api.sandbox.midtrans.com/v2/$request->order_id/status");
-
-    //     $response = json_decode($response->body());
-
-    //     $payment = Payment::where('order_id', $response->order_id)->first();
-
-    //     if ($payment->status === 'settlement' || $payment->status === 'capture') {
-    //         return response()->json('Payment has been already processed');
-    //     }
-
-    //     if ($response->transaction_status === 'capture') {
-    //         $payment->status = 'capture';
-    //     } else if ($response->transaction_status === 'settlement') {
-    //         $payment->status = 'settlement';
-    //     } else if ($response->transaction_status === 'pending') {
-    //         $payment->status = 'pending';
-    //     } else if ($response->transaction_status === 'deny') {
-    //         $payment->status = 'deny';
-    //     } else if ($response->transaction_status === 'expire') {
-    //         $payment->status = 'expire';
-    //     } else if ($response->transaction_status === 'cancel') {
-    //         $payment->status = 'cancel';
-    //     }
-
-
-    //     $payment->save();
-
-    //     return response()->json('success');
-    // }
-
     public function webhook(Request $request)
     {
         $auth = base64_encode(env('MIDTRANS_SERVER_KEY'));
@@ -201,6 +164,20 @@ class PaymentController extends Controller
             return response()->json('Payment has been already processed');
         }
 
+        if ($response->transaction_status === 'capture') {
+            $payment->status = 'capture';
+        } else if ($response->transaction_status === 'settlement') {
+            $payment->status = 'settlement';
+        } else if ($response->transaction_status === 'pending') {
+            $payment->status = 'pending';
+        } else if ($response->transaction_status === 'deny') {
+            $payment->status = 'deny';
+        } else if ($response->transaction_status === 'expire') {
+            $payment->status = 'expire';
+        } else if ($response->transaction_status === 'cancel') {
+            $payment->status = 'cancel';
+        }
+
         $payment->status = $response->transaction_status;
         $payment->save();
 
@@ -209,22 +186,24 @@ class PaymentController extends Controller
 
     public function finish()
     {
+        dd("Tes");
         // return response()->json('Transaksi anda sedang diproses');
-        Alert::success('Success!', 'Terima kasih atas donasi anda!!');
-        return redirect()->route('home');
+        // Alert::success('Success!', 'Terima kasih atas donasi anda!!');
+        // return redirect()->route('home');
+        return redirect()->back();
     }
 
     public function unfinish()
     {
         // return response()->json('Transaksi anda sedang diproses');
         Alert::success('warning!', 'Terima kasih, transaksi anda sedang diproses!!');
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
     public function error()
     {
         // return response()->json('Transaksi anda gagal');
         Alert::success('error!', 'Mohon maaf, transaksi anda gagal!!');
-        return redirect()->route('home');
+        return redirect()->back();
     }
 }
