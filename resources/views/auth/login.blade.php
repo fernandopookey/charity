@@ -76,13 +76,13 @@
                                     <h5 class="card-title text-center pb-0 fs-4">Login Page</h5>
                                 </div>
 
-                                <form class="row g-3 needs-validation" novalidate>
-
+                                <form class="row g-3 needs-validation" method="POST">
+                                    @csrf
                                     <div class="col-12">
                                         <label class="form-label">Email</label>
                                         <div class="input-group has-validation">
                                             <input type="email" name="email" class="form-control" required>
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            <p style="color: red"><x-input-error :messages="$errors->get('email')" class="mt-2" /></p>
                                         </div>
                                     </div>
 

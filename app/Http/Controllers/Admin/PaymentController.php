@@ -189,21 +189,21 @@ class PaymentController extends Controller
         dd("Tes");
         // return response()->json('Transaksi anda sedang diproses');
         // Alert::success('Success!', 'Terima kasih atas donasi anda!!');
-        // return redirect()->route('home');
-        return redirect()->back();
+        return redirect()->route('donate');
+        // return redirect()->back();
     }
 
     public function unfinish()
     {
         // return response()->json('Transaksi anda sedang diproses');
         Alert::success('warning!', 'Terima kasih, transaksi anda sedang diproses!!');
-        return redirect()->back();
+        return redirect()->route('donate');
     }
 
     public function error()
     {
         // return response()->json('Transaksi anda gagal');
         Alert::success('error!', 'Mohon maaf, transaksi anda gagal!!');
-        return redirect()->back();
+        return redirect()->route('donate');
     }
 }
