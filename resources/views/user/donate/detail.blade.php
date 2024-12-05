@@ -39,7 +39,7 @@
                             </div>
                             <div class="balance d-flex justify-content-between align-items-center">
                                 <span style="color: #f8004c;"><b>Terkumpul</b> :
-                                    {{ rupiahFormat($causeById->raised) }}</span>
+                                    {{ rupiahFormat($causeById->raised ?? 0) }}</span>
                                 <span style="color: #f8004c;"><b>Target: </b>{{ rupiahFormat($causeById->goal) }}</span>
                             </div>
                             <div style="margin-bottom: 30px">
