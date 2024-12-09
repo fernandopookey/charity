@@ -32,6 +32,8 @@ Route::get('/donate', [DonateController::class, 'index'])->name('donate');
 Route::get('/payment/finish', [PaymentController::class, 'finish'])->name('finish');
 Route::get('/payment/unfinish', [PaymentController::class, 'unfinish'])->name('unfinish');
 Route::get('/payment/error', [PaymentController::class, 'error'])->name('error');
+Route::get('/payment/payment-repeat', [PaymentController::class, 'paymentRepeat'])->name('paymentRepeat');
+// Route::post('/webhooks/midtrans', [PaymentController::class, 'webhook']);
 
 Route::middleware('api')->post('/payments/{id}', [PaymentController::class, 'create'])->name('api-payments');
 

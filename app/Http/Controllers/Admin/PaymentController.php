@@ -208,4 +208,10 @@ class PaymentController extends Controller
         Alert::error('failed!', 'Mohon maaf, transaksi anda gagal!!');
         return redirect()->route('donate');
     }
+
+    public function paymentRepeat()
+    {
+        Alert::error('failed!', 'Pembayaran anda yang sebelumnya gagal!!');
+        return redirect()->route('donate');
+    }
 }
