@@ -72,32 +72,53 @@ class MediaSocialController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // $item = MediaSocial::find($id);
+        // $data = $request->validate([
+        //     'title'     => 'nullable',
+        //     'link'      => 'nullable',
+        //     'icon'     => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
+        // ]);
+
+        // if ($request->hasFile('icon')) {
+
+        //     if ($item->icon != null) {
+        //         $realLocation = "storage/" . $item->icon;
+        //         if (file_exists($realLocation) && !is_dir($realLocation)) {
+        //             unlink($realLocation);
+        //         }
+        //     }
+
+        //     $image = $request->file('image');
+        //     $file_name = time() . '-' . $image->getClientOriginalName();
+
+        //     $data['icon'] = $request->file('icon')->store('assets/media-social', 'public');
+        // } else {
+        //     $data['icon'] = $item->icon;
+        // }
+
+        // $item->update($data);
+        // Alert::success('Success!', 'Media Social Updated Successfully');
+        // return redirect()->route('media-socials.index');
+
         $item = MediaSocial::find($id);
+        // dd($item);
         $data = $request->validate([
-            'title'     => 'nullable',
-            'link'      => 'nullable',
-            'icon'     => 'nullable|image|mimes:jpeg,png,jpg|max:1048',
+            'title'  => 'nullable',
+            'link'         => 'nullable',
+            'icon'          => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         if ($request->hasFile('icon')) {
-
-            if ($item->icon != null) {
-                $realLocation = "storage/" . $item->icon;
-                if (file_exists($realLocation) && !is_dir($realLocation)) {
-                    unlink($realLocation);
-                }
+            if ($item->icon) {
+                Storage::delete($item->icon);
             }
 
-            $image = $request->file('image');
-            $file_name = time() . '-' . $image->getClientOriginalName();
-
-            $data['icon'] = $request->file('icon')->store('assets/media-social', 'public');
-        } else {
-            $data['icon'] = $item->icon;
+            $imagePath = $request->file('icon')->store('social-media', 'public');
+            $data['icon'] = $imagePath;
         }
 
         $item->update($data);
-        Alert::success('Success!', 'Media Social Updated Successfully');
+        Alert::success('Success!', 'Sosial Media Berhasil Diubah');
         return redirect()->route('media-socials.index');
     }
 

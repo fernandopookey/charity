@@ -24,7 +24,7 @@ class FooterContentController extends Controller
     public function update(Request $request, $id)
     {
         $item = FooterContent::find($id);
-        dd($item);
+        // dd($item);
         $data = $request->validate([
             'phone_number'  => 'nullable',
             'email'         => 'nullable',
