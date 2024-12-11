@@ -30,12 +30,14 @@ class PaymentController extends Controller
         $jml = intval($jml);
         $causeGoal = $causeData->goal;
         $request->validate([
-            'price' => 'required|numeric',
+            'price' => 'required',
+            // 'price' => 'required|numeric',
             // 'item_name' => 'required|string',
             // 'customer_name' => 'required|string',
             // 'customer_email' => 'required|email',
         ]);
         $rep = $request['price'];
+        // dd($request);
 
         $replacePrice = preg_replace("/[^0-9]/", "", "$rep");
         $replacePrice = (int)$replacePrice;
