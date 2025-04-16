@@ -52,34 +52,9 @@
                                                 href="{{ route('our-gallery') }}">Gallery</a></li>
                                         <li><a style="text-decoration: none;" href="{{ route('user-contact') }}">Hubungi
                                                 Kami</a></li>
-                                        {{-- <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html">blog</a></li>
-                                                <li><a href="single-blog.html">single-blog</a></li>
-                                            </ul>
-                                        </li> --}}
-                                        {{-- <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="elements.html">elements</a></li>
-                                                <li><a href="Cause.html">Cause</a></li>
-                                            </ul>
-                                        </li> --}}
-                                        {{-- <li><a href="contact.html">Kontak</a></li> --}}
-                                        {{-- <li>
-                                            <a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <div class="Appointment">
-                                                    <div class="book_btn d-none d-lg-block">
-                                                        @guest
-                                                            <a href="{{ route('donate') }}">Donasi</a>
-                                                        @endguest
-                                                        @auth
-                                                            <a href="#">{{ Auth::user()->name }}</a>
-                                                        @endauth
-                                                    </div>
-                                                </div>
-                                            </ul>
-                                        </li> --}}
+                                        <li><a style="text-decoration: none;"
+                                                href="{{ route('terms&conditions') }}">Terms
+                                                & Conditions</a></li>
                                     </ul>
                                 </nav>
                                 <div class="Appointment">
