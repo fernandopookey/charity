@@ -90,6 +90,13 @@
                 <span>Transaction Report</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('terms-conditions') ? 'active' : 'collapsed' }}"
+                href="{{ route('terms-conditions.index') }}">
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <span>Terms & Conditions</span>
+            </a>
+        </li>
     </ul>
 
 </aside><!-- End Sidebar-->

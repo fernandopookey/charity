@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\TermsConditions;
 use App\Http\Controllers\Admin\TransactionReportController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
@@ -23,6 +24,7 @@ Route::get('about-us', [AboutController::class, 'userAbout'])->name('user-about'
 Route::get('contact', [ContactController::class, 'index'])->name('user-contact');
 Route::post('contact', [ContactController::class, 'store'])->name('send-message');
 Route::get('our-gallery', [GalleryController::class, 'userGallery'])->name('our-gallery');
+Route::get('terms&conditions', [TermsConditions::class, 'userTermsConditions'])->name('terms&conditions');
 
 // ==========================================================================================================================================================
 // ADMIN
@@ -55,6 +57,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('media-socials', '\App\Http\Controllers\Admin\MediaSocialController');
     Route::resource('donation-price', '\App\Http\Controllers\Admin\DonationPriceController');
     Route::resource('gallery', '\App\Http\Controllers\Admin\GalleryController');
+    Route::resource('terms-conditions', '\App\Http\Controllers\Admin\TermsConditions');
 
     Route::get('/transaction-report', [TransactionReportController::class, 'index'])->name('transaction-report');
     Route::get('/transaction-report-pdf', [TransactionReportController::class, 'pdf'])->name('transaction-report-pdf');

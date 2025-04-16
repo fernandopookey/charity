@@ -37,7 +37,7 @@
                                 {{-- <li><a href="#">Sponsor</a></li> --}}
                                 {{-- <li><a href="#">Fundraise</a></li> --}}
                                 <li><a href="#">Sukarelawan</a></li>
-                                {{-- <li><a href="#">Partner</a></li> --}}
+                                <li><a href="{{ route('terms&conditions') }}">Terms & Conditions</a></li>
                                 {{-- <li><a href="#">Jobs</a></li> --}}
                             </ul>
                         </div>
