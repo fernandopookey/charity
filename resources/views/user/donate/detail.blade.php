@@ -1,3 +1,10 @@
+<meta property="og:title" content="{{ $causeById->title }}" />
+<meta property="og:description" content="{{ $causeById->description }}" />
+{{-- <meta property="og:image" content="{{ asset('storage/' . $causeById->image) }}" /> --}}
+<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:type" content="article" />
+
+
 <!-- bradcam_area_start  -->
 <div class="container">
     <div class="row" style="margin-top: 70px">
@@ -6,9 +13,10 @@
                 @foreach ($causesList as $cause)
                     <div class="single_cause">
                         <div class="thumb">
-                            <img src="{{ asset($cause->cause_image) ?? '' }}" style="height: 250px; object-fit: cover;"
-                                alt="Cause Image" loading="lazy" class="gallery-image" data-bs-toggle="modal"
-                                data-bs-target="#imageModal" data-bs-image="{{ asset($cause->cause_image) ?? '' }}">
+                            <img src="{{ Storage::url($cause->cause_image ?? '') }}"
+                                style="height: 250px; object-fit: cover; cursor: pointer;" alt="Cause Image"
+                                loading="lazy" class="gallery-image" data-bs-toggle="modal" data-bs-target="#imageModal"
+                                data-bs-image="{{ Storage::url($cause->cause_image ?? '') }}">
                         </div>
                     </div>
                 @endforeach
@@ -39,7 +47,7 @@
                             </div>
                             <div class="balance d-flex justify-content-between align-items-center">
                                 <span style="color: #f8004c;"><b>Terkumpul</b> :
-                                    {{ rupiahFormat($causeById->raised ?? 0) }}</span>
+                                    {{ rupiahFormat($causeById->raised) }}</span>
                                 <span style="color: #f8004c;"><b>Target: </b>{{ rupiahFormat($causeById->goal) }}</span>
                             </div>
                             <div style="margin-bottom: 30px">
@@ -180,12 +188,45 @@
                                     Sekarang</button>
                             </div>
                         </div>
-
                     </div>
                 </form>
+
+                @php
+                    $shareButtons = \Share::page(url()->current(), 'Bagikan yuk!')
+                        ->whatsapp()
+                        ->facebook()
+                        ->twitter()
+                        ->telegram();
+                @endphp
+
+                {{-- {!! $shareButtons !!} --}}
+                {{-- {!! str_replace('<a ', '<a target="_blank" rel="noopener noreferrer" ', $shareButtons) !!} --}}
+                <div class="d-flex gap-2">
+                    Bagikan Via :
+                    <a href="https://www.whatsapp.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                        target="_blank" rel="noopener noreferrer" class="text-blue-600">
+                        <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                        target="_blank" rel="noopener noreferrer" class="text-blue-600">
+                        <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}" target="_blank"
+                        rel="noopener noreferrer" class="text-blue-400">
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
         </div>
     @endif
+    {{-- <p>Share Via : </p>
+    <a href="https://wa.me/?text={{ urlencode(Request::fullUrl()) }}" target="_blank">
+        <i class="fa fa-whatsapp" aria-hidden="true"></i>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(Request::fullUrl()) }}" target="_blank">
+        <i class="fa fa-facebook-square" aria-hidden="true"></i>
+    </a> --}}
 
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">

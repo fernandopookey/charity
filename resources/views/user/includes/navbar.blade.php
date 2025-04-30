@@ -49,7 +49,7 @@
                                         <li><a style="text-decoration: none;"
                                                 href="{{ route('user-about') }}">Tentang</a></li>
                                         <li><a style="text-decoration: none;"
-                                                href="{{ route('our-gallery') }}">Gallery</a></li>
+                                                href="{{ route('gallery-category') }}">Gallery</a></li>
                                         <li><a style="text-decoration: none;" href="{{ route('user-contact') }}">Hubungi
                                                 Kami</a></li>
                                         <li><a style="text-decoration: none;"

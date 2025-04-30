@@ -18,7 +18,11 @@
                         @endif
                         <div class="col-md-6">
                             <label class="form-label">Title</label>
-                            <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                            <input type="text" name="title" value="{{ old('title') }}" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Note</label>
+                            <textarea name="note" class="form-control" rows="4">{{ old('note') }}</textarea>
                         </div>
                         <div class="col-xl-6">
                             <div class="mb-3">
@@ -35,15 +39,15 @@
                             </div>
                         </div>
                         <div class="col-6">
-                            <label class="form-label">Note</label>
-                            <div class="form-floating">
-                                <textarea class="form-control" name="note" id="floatingTextarea" style="height: 300px;"></textarea>
-                                <label for="floatingTextarea">{{ old('note') }}</label>
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Upload Image</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="file" name="image" onchange="loadFile(event)">
+                                <img id="output" class="img-fluid mt-2 mb-4"
+                                    style="width: 100px; height: 100px; object-fit: cover;" />
                             </div>
                         </div>
                         <div class="text-start">
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <a href="{{ route('gallery.index') }}" class="btn btn-secondary">Back</a>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </form><!-- End Multi Columns Form -->
                 </div>

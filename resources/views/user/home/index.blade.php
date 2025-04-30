@@ -1,4 +1,22 @@
 <!-- slider_area_start -->
+{{-- <div class="slider_area">
+    <div class="single_slider  d-flex align-items-center slider_bg_1 overlay2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="slider_text ">
+                        <span>{{ $slider->title }}</span>
+                        <h3>{{ $slider->sub_title }}</h3>
+                        <p>{{ $slider->description }}</p>
+                        <a href="About.html" class="boxed-btn3">Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
 <div class="container">
     <div class="row" style="margin-top: 70px">
         <div class="col-lg-12">
@@ -9,9 +27,9 @@
                     ?>
                     <div class="single_cause">
                         <div class="thumb">
-                            <img src="{{ $cause->primary_image ?? '' }}" style="height: 250px; object-fit: cover;"
+                            {{-- <img src="{{ $cause->primary_image ?? '' }}" style="height: 250px; object-fit: cover;"
                                 alt="Cause Image" loading="lazy" class="gallery-image" data-bs-toggle="modal"
-                                data-bs-image="{{ $cause->primary_image ?? '' }}">
+                                data-bs-target="#imageModal" data-bs-image="{{ $cause->primary_image ?? '' }}">
                         </div>
                         <div class="causes_content">
                             <div class="custom_progress_bar">
@@ -33,10 +51,9 @@
                             </div>
                             <small style="font-size: 13px"><b style="color: rgb(106, 105, 105)">Sisa Hari :
                                     {{ $cause->left_days }}</b></small>
-                            <a href="{{ route('user-cause-detail', $cause->id) }}" style="text-decoration: none">
-                                <h4 style="color: black;">{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
-                                <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
-                            </a>
+                            <h4>{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
+                            <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
+                            <a class="read_more" href="{{ route('user-cause-detail', $cause->id) }}">Selengkapnya</a>
                         </div>
                     </div>
                 @endforeach
@@ -58,12 +75,12 @@
         </div>
         <div class="row justify-content-center">
             @foreach ($helpReasons as $helpReason)
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-10">
                     <div class="single_reson">
                         <div class="thum">
                             <div class="thum_1">
                                 <img src="{{ Storage::url($helpReason->image ?? '') }}" alt=""
-                                    style="height: 400px; width: 380px; object-fit: cover">
+                                    style="width: 100%; height: 400px; object-fit: cover">
                             </div>
                         </div>
                         <div class="help_content">
@@ -108,9 +125,20 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <img src="" id="modalImage" style="width: 500px; height: 500px; object-fit: cover;"
+                <img src="" id="modalImage" style="width: 450px; height: 450px; object-fit: cover;"
                     class="img-fluid" alt="Gallery Image">
             </div>
         </div>
     </div>
 </div>
+
+
+{{-- <script>
+    const imageModal = document.getElementById('imageModal');
+    imageModal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const imageUrl = button.getAttribute('data-image');
+        const modalImage = document.getElementById('modalImage');
+        modalImage.src = imageUrl;
+    });
+</script> --}}

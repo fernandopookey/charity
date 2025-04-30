@@ -5,6 +5,29 @@
 </style>
 
 <section class="section">
+    <form method="GET" action="{{ route('cause.index') }}" class="d-flex gap-2 mb-3">
+        <select name="status" class="form-control">
+            <option value="">-- Filter Status --</option>
+            <option value="Running" {{ request('status') == 'Running' ? 'selected' : '' }}>Running</option>
+            <option value="over" {{ request('status') == 'over' ? 'selected' : '' }}>Ended</option>
+        </select>
+
+        <select name="visibility" class="form-control">
+            <option value="">-- Filter Visibility --</option>
+            <option value="1" {{ request('visibility') == '1' ? 'selected' : '' }}>Publish</option>
+            <option value="0" {{ request('visibility') == '0' ? 'selected' : '' }}>Non-Publish</option>
+        </select>
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+
+        <a href="{{ route('cause.index') }}">
+            <button type="button" class="btn btn-secondary">
+                Reset
+            </button>
+        </a>
+    </form>
+
+
     <div class="row">
         <div class="col-lg-12">
             <div class="card">

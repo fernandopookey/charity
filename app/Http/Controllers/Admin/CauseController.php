@@ -6,24 +6,53 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CauseStoreRequest;
 use App\Http\Requests\CauseUpdateRequest;
 use App\Models\Cause;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CauseController extends Controller
 {
-    public function index()
+    // public function index(Request $request)
+    // {
+    //     $status = $request->input('status');
+
+    //     $causes = Cause::getCauseList("");
+    //     dd($causes);
+    //     // $causes = Cause::getCauseList("", $status);
+    //     // dd($status);
+
+    //     $data = [
+    //         'title'             => 'Cause',
+    //         'causes'            => $causes,
+    //         'content'           => 'admin/cause/index'
+    //     ];
+
+    //     return view('admin.layout.wrapper', $data);
+    // }
+
+    public function index(Request $request)
     {
-        $causes = Cause::getAllCauseList("");
-        $data = [
-            'title'             => 'Cause',
-            'causes'            => $causes,
-            'content'           => 'admin/cause/index'
-        ];
+        $status = $request->input('status');         // Running / over / Not Started
+        $visibility = $request->input('visibility'); // 1 / 0
 
-        return view('admin.layout.wrapper', $data);
+        // Ambil semua data dari model (dengan query SQL)
+        $causes = Cause::getCauseListActive();
+
+        // Lakukan filter secara collection (di PHP)
+        $filteredCauses = collect($causes)->filter(function ($cause) use ($status, $visibility) {
+            $statusMatch = $status ? $cause->active_status === $status : true;
+            $visibilityMatch = $visibility !== null && $visibility !== ''
+                ? $cause->visibility_status == $visibility
+                : true;
+
+            return $statusMatch && $visibilityMatch;
+        });
+
+        return view('admin.layout.wrapper', [
+            'title'   => 'Cause',
+            'causes'  => $filteredCauses,
+            'content' => 'admin/cause/index'
+        ]);
     }
-
 
     public function create()
     {
@@ -86,6 +115,8 @@ class CauseController extends Controller
             Alert::success('Success!', 'Cause Deleted Successfully');
             return redirect()->back();
         } catch (\Throwable $th) {
+            dd("Hallo");
+            dd($th);
             Alert::error('Error!', 'Cause Deleted Failed');
             return redirect()->back();
         }

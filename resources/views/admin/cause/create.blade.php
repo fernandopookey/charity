@@ -20,10 +20,6 @@
                             <label class="form-label">Title</label>
                             <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                         </div>
-                        {{-- <div class="col-md-6">
-                            <label for="inputName5" class="form-label">Raised</label>
-                            <input type="number" class="form-control rupiah">
-                        </div> --}}
                         <div class="col-md-6">
                             <label class="form-label">Goal</label>
                             <input type="text" name="goal" class="form-control" id="rupiah" placeholder="Rp.0">
@@ -47,6 +43,13 @@
                             <div class="form-floating">
                                 <textarea class="form-control" name="description" id="floatingTextarea" style="height: 300px;"></textarea>
                                 <label for="floatingTextarea">{{ old('description') }}</label>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Detail Donation</label>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="detail_donation" id="floatingTextarea" style="height: 300px;"></textarea>
+                                <label for="floatingTextarea">{{ old('detail_donation') }}</label>
                             </div>
                         </div>
                         <div class="text-start">

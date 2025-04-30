@@ -20,6 +20,8 @@ class HomeController extends Controller
     public function index()
     {
         $causes = Cause::getCauseListActive("");
+        // dd($causes->expired_date[0]);
+        // dd($causes);
 
         $data = [
             'content'       => 'user/home/index',
