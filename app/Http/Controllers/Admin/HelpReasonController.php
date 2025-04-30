@@ -13,58 +13,9 @@ class HelpReasonController extends Controller
     public function index()
     {
         $data = [
-            'title'         => 'Reason of Helping',
-            'helpReasons'   => HelpReason::all(),
+            'title'         => 'Visi & Misi',
+            'visions'       => HelpReason::first(),
             'content'       => 'admin/help-reasons/index'
-        ];
-
-        return view('admin.layout.wrapper', $data);
-    }
-
-    public function create()
-    {
-        $data = [
-            'title'     => 'Create Reason of Helping',
-            'content'   => 'admin/help-reasons/create'
-        ];
-
-        return view('admin.layout.wrapper', $data);
-    }
-
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'title'     => 'required',
-            'description'   => 'required',
-            'image'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
-
-        if ($request->hasFile('image')) {
-            if ($request->image != null) {
-                $realLocation = "storage/" . $request->image;
-                if (file_exists($realLocation) && !is_dir($realLocation)) {
-                    unlink($realLocation);
-                }
-            }
-            $image = $request->file('image');
-            $file_name = time() . '-' . $image->getClientOriginalName();
-
-            $data['image'] = $request->file('image')->store('assets/help-reason', 'public');
-        } else {
-            $data['image'] = $request->photos;
-        }
-
-        HelpReason::create($data);
-        Alert::success('Success!', 'Help Reason Created Successfully');
-        return redirect()->route('help-reasons.index');
-    }
-
-    public function edit(Request $request, $id)
-    {
-        $data = [
-            'title'         => 'Edit Reason of Helping',
-            'helpReason'    => HelpReason::find($id),
-            'content'       => 'admin/help-reasons/edit'
         ];
 
         return view('admin.layout.wrapper', $data);
@@ -99,37 +50,5 @@ class HelpReasonController extends Controller
         $item->update($data);
         Alert::success('Success!', 'Help Reason Updated Successfully');
         return redirect()->route('help-reasons.index');
-    }
-
-    public function show(Request $request, $id)
-    {
-        $data = [
-            'title'         => 'Reason of Helping Detail',
-            'helpReason'    => HelpReason::find($id),
-            'content'       => 'admin/help-reasons/show'
-        ];
-
-        return view('admin.layout.wrapper', $data);
-    }
-
-    public function destroy($id)
-    {
-        $helpReason = HelpReason::find($id);
-        try {
-            if ($helpReason->image != null) {
-                $realLocation = "storage/" . $helpReason->image;
-                if (file_exists($realLocation) && !is_dir($realLocation)) {
-                    unlink($realLocation);
-                }
-            }
-
-            Storage::delete($helpReason->image);
-            $helpReason->delete();
-            Alert::success('Success!', 'Help Reason Deleted Successfully');
-            return redirect()->back();
-        } catch (\Throwable $e) {
-            Alert::error('Gagal', 'Help Reason Deleted Failed');
-            return redirect()->back();
-        }
     }
 }

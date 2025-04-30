@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Midtrans\Transaction;
 
 class TransactionReportController extends Controller
 {
@@ -48,4 +49,10 @@ class TransactionReportController extends Controller
     {
         dd("PDF");
     }
+
+    // public function destroy($id)
+    // {
+    //     $transaction = Payment::find($id);
+    //     dd($item);
+    // }
 }

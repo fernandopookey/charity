@@ -44,20 +44,25 @@ class DonateController extends Controller
         return view('user.layouts.wrapper', $data);
     }
 
-    public function show($id)
+    public function show($slug)
     {
         $donatePrices = Donation::all();
-        // dd($donatePrices);
+        $causes = Cause::getCauseList3("", "");
 
-        $causes = Cause::getCauseList3("");
-        $causeById = Cause::getCauseList3($id);
-        $causeList = Cause::getCauseList3($id);
+        $causeById = Cause::getCauseList3("", $slug);
+        $causeList = Cause::getCauseList3("", $slug);
         $now = Carbon::now()->tz('Asia/Jakarta');
-        // dd($causeList);
 
-        $test = CauseImage::where('cause_id', $id)
-            ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
-            ->get();
+        // Share
+        $shareButtons = \Share::page(
+            url()->current(),
+            $causeById[0]->title
+        )
+            ->whatsapp()
+            ->facebook()
+            ->twitter()
+            ->linkedin()
+            ->telegram();
 
         $data = [
             'causes'        => $causes,
@@ -68,8 +73,9 @@ class DonateController extends Controller
             'mediaSocials'  => MediaSocial::all(),
             'about'         => About::first(),
             'now'           => $now,
+            'shareButtons'  => $shareButtons,
             'donatePrices'  => $donatePrices,
-            'causeVideos'   => CauseImage::where('cause_id', $id)
+            'causeVideos'   => CauseImage::where('cause_id', $causeById[0]->id)
                 ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
                 ->get(),
             'content'       => 'user/donate/detail',
@@ -77,44 +83,40 @@ class DonateController extends Controller
 
         return view('user.layouts.wrapper', $data);
     }
+
+    // public function show($id)
     // {
-    //     // Ambil data Cause berdasarkan ID
-    //     $cause = Cause::with(['causePayment', 'causeImage'])->find($id);
+    //     $donatePrices = Donation::all();
 
-    //     // Jika cause tidak ditemukan, bisa menambahkan penanganan error
-    //     if (!$cause) {
-    //         abort(404);
-    //     }
+    //     $causes = Cause::getCauseList3("");
+    //     $causeById = Cause::getCauseList3($id);
+    //     $causeList = Cause::getCauseList3($id);
+    //     // dd($causeById);
+    //     $now = Carbon::now()->tz('Asia/Jakarta');
+    //     // dd($causeList);
 
-    //     // Hitung total harga dari causePayment
-    //     $jml = $cause->causePayment->sum('price');
-    //     $raised = intval($jml);
-
-    //     // Pisahkan causeImages menjadi dua kategori: gambar dan video
-    //     $causeImages = $cause->causeImages->filter(function ($image) {
-    //         return preg_match('/\.(jpg|jpeg|png)$/i', $image->image);
-    //     });
-
-    //     $causeVideos = $cause->causeImages->filter(function ($image) {
-    //         return preg_match('/\.mp4$/i', $image->image);
-    //     });
+    //     $test = CauseImage::where('cause_id', $id)
+    //         ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
+    //         ->get();
 
     //     $data = [
-    //         'cause'         => $cause,
-    //         'causeImages'   => $causeImages,
-    //         'causeVideos'   => $causeVideos,
-    //         'raised'        => $raised,
-    //         'causes'        => Cause::all(),
+    //         'causes'        => $causes,
+    //         'causeById'     => $causeById[0],
+    //         'causesList'    => $causeList,
     //         'navbarContent' => NavbarContent::first(),
     //         'footerContent' => FooterContent::first(),
     //         'mediaSocials'  => MediaSocial::all(),
     //         'about'         => About::first(),
+    //         'now'           => $now,
+    //         'donatePrices'  => $donatePrices,
+    //         'causeVideos'   => CauseImage::where('cause_id', $id)
+    //             ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
+    //             ->get(),
     //         'content'       => 'user/donate/detail',
     //     ];
 
     //     return view('user.layouts.wrapper', $data);
     // }
-
 
     public function process(Request $request)
     {

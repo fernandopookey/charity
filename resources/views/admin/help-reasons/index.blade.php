@@ -2,59 +2,44 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <a href="{{ route('help-reasons.create') }}" class="btn btn-primary"
-                            style="margin-top: 20px; margin-left: 20px; margin-bottom: 20px;">Create</a>
-                    </div>
-                </div>
                 <div class="card-body">
-                    {{-- <h5 class="card-title">Datatables</h5> --}}
-
-                    <!-- Table with stripped rows -->
-                    <table class="table datatable">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Images</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($helpReasons as $helpReason)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $helpReason->title }}</td>
-                                    <td>{{ \Illuminate\Support\Str::limit($helpReason->description, 50) }}</td>
-                                    <td>
-                                        <img src="{{ Storage::url($helpReason->image ?? '') }}" class="lazyload"
-                                            width="100" alt="image">
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('help-reasons.edit', $helpReason->id) }}"
-                                            class="btn btn-outline-warning btn-sm w-70"><i class="fa fa-pencil"
-                                                aria-hidden="true"></i></a>
-                                        <a href="{{ route('help-reasons.show', $helpReason->id) }}"
-                                            class="btn btn-outline-warning btn-sm w-70"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></a>
-                                        <form action="{{ route('help-reasons.destroy', $helpReason->id) }}"
-                                            onclick="return confirm('Delete Data ? ')" method="POST">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-outline-danger btn-sm w-70 mt-1"><i
-                                                    class="fa fa-trash" aria-hidden="true"></i></button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <!-- End Table with stripped rows -->
+                    <form action="{{ route('help-reasons.update', $visions->id) }}" class="row g-3 mt-4" method="POST"
+                        enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="col-md-6">
+                            <label class="form-label">Title</label>
+                            <input type="text" name="title" value="{{ $visions->title }}" class="form-control">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Description</label>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="description" id="floatingTextarea" style="height: 100px;">{{ $visions->description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="inputNumber" class="col-sm-2 col-form-label">Upload Image</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" type="file" name="image" id="formFile">
+                            </div>
+                            <img src="{{ Storage::url($visions->image ?? '') }}" class="img-fluid mt-2 mb-4"
+                                style="width: 100px; height: 100px; object-fit: cover;" alt="image">
+                        </div>
+                        <div class="text-start">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 </section>

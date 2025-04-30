@@ -45,6 +45,12 @@
                                 <textarea class="form-control" name="description" id="floatingTextarea" style="height: 300px;">{{ $causes->description }}</textarea>
                             </div>
                         </div>
+                        <div class="col-6">
+                            <label class="form-label">Detail Donation</label>
+                            <div class="form-floating">
+                                <textarea class="form-control" name="detail_donation" id="floatingTextarea" style="height: 300px;">{{ $causes->detail_donation }}</textarea>
+                            </div>
+                        </div>
                         <div class="text-start">
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('cause.index') }}" class="btn btn-secondary">Back</a>
