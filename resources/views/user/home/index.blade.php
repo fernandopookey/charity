@@ -1,22 +1,3 @@
-<!-- slider_area_start -->
-{{-- <div class="slider_area">
-    <div class="single_slider  d-flex align-items-center slider_bg_1 overlay2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9">
-                    <div class="slider_text ">
-                        <span>{{ $slider->title }}</span>
-                        <h3>{{ $slider->sub_title }}</h3>
-                        <p>{{ $slider->description }}</p>
-                        <a href="About.html" class="boxed-btn3">Learn More
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
 <div class="container">
     <div class="row" style="margin-top: 70px">
         <div class="col-lg-12">
@@ -27,9 +8,10 @@
                     ?>
                     <div class="single_cause">
                         <div class="thumb">
-                            {{-- <img src="{{ $cause->primary_image ?? '' }}" style="height: 250px; object-fit: cover;"
-                                alt="Cause Image" loading="lazy" class="gallery-image" data-bs-toggle="modal"
-                                data-bs-target="#imageModal" data-bs-image="{{ $cause->primary_image ?? '' }}">
+                            <img src="{{ Storage::url($cause->primary_image ?? '') }}"
+                                style="height: 250px; object-fit: cover;" alt="Cause Image" loading="lazy"
+                                class="gallery-image" data-bs-toggle="modal" data-bs-target="#imageModal"
+                                data-bs-image="{{ Storage::url($cause->primary_image ?? '') }}">
                         </div>
                         <div class="causes_content">
                             <div class="custom_progress_bar">
@@ -49,11 +31,18 @@
                                     {{ rupiahFormat($cause->raised ?? 0) }}</span>
                                 <span style="color: #f8004c;">Target: {{ rupiahFormat($cause->goal) }}</span>
                             </div>
-                            <small style="font-size: 13px"><b style="color: rgb(106, 105, 105)">Sisa Hari :
-                                    {{ $cause->left_days }}</b></small>
-                            <h4>{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
-                            <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
-                            <a class="read_more" href="{{ route('user-cause-detail', $cause->id) }}">Selengkapnya</a>
+                            <div class="d-flex justify-content-between">
+                                <small style="font-size: 13px"><b style="color: rgb(106, 105, 105)">Tanggal :
+                                        {{ \Carbon\Carbon::parse($cause->expired_date)->format('d M Y') }}</b></small>
+                                <small style="font-size: 13px"><b style="color: rgb(106, 105, 105)">Sisa Hari :
+                                        {{ $cause->left_days }}</b></small>
+                            </div>
+                            <a href="{{ route('user-cause-detail', $cause->slug) }}"
+                                style="text-decoration: none; color: black;">
+                                <h4>{{ \Illuminate\Support\Str::limit($cause->title, 20) }}</h4>
+                                <p>{{ \Illuminate\Support\Str::limit($cause->description, 40) }}</p>
+                            </a>
+                            <a class="read_more" href="{{ route('user-cause-detail', $cause->slug) }}">Selengkapnya</a>
                         </div>
                     </div>
                 @endforeach
@@ -133,7 +122,7 @@
 </div>
 
 
-{{-- <script>
+<script>
     const imageModal = document.getElementById('imageModal');
     imageModal.addEventListener('show.bs.modal', function(event) {
         const button = event.relatedTarget;
@@ -141,4 +130,4 @@
         const modalImage = document.getElementById('modalImage');
         modalImage.src = imageUrl;
     });
-</script> --}}
+</script>

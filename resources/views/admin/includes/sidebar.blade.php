@@ -39,6 +39,13 @@
                 <span>Media Sosial</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('terms-conditions') ? 'active' : 'collapsed' }}"
+                href="{{ route('terms-conditions.index') }}">
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <span>Terms & Conditions</span>
+            </a>
+        </li>
         {{-- <li class="nav-item">
             <a class="nav-link {{ Route::is('slider.index') ? 'active' : 'collapsed' }}"
                 href="{{ route('slider.index') }}">
@@ -83,19 +90,14 @@
                 <span>Transaction Report</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {{ Route::is('terms-conditions') ? 'active' : 'collapsed' }}"
-                href="{{ route('terms-conditions.index') }}">
-                <i class="fa fa-shield" aria-hidden="true"></i>
-                <span>Terms & Conditions</span>
-        <li class="nav-heading">User Management</li>
         {{-- <li class="nav-item">
             <a class="nav-link {{ Route::is('home-video.index') ? 'active' : 'collapsed' }}"
-                href="{{ route('home-video.index') }}">
-                <i class="fa fa-file-video-o" aria-hidden="true"></i>
-                <span>Home Video</span>
-            </a>
-        </li> --}}
+            href="{{ route('home-video.index') }}">
+            <i class="fa fa-file-video-o" aria-hidden="true"></i>
+            <span>Home Video</span>
+        </a>
+    </li> --}}
+        <li class="nav-heading">User Management</li>
         <li class="nav-item">
             <a class="nav-link {{ Route::is('users.index') ? 'active' : 'collapsed' }}"
                 href="{{ route('users.index') }}">
