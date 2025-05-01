@@ -55,6 +55,12 @@
                                         <li><a style="text-decoration: none;"
                                                 href="{{ route('terms&conditions') }}">Terms
                                                 & Conditions</a></li>
+                                        @auth
+                                            @if (Auth::user()->role == 'admin')
+                                                <li><a style="text-decoration: none;"
+                                                        href="{{ route('dashboard') }}">Dashboard</a></li>
+                                            @endif
+                                        @endauth
                                     </ul>
                                 </nav>
                                 <div class="Appointment">

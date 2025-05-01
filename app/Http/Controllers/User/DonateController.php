@@ -48,7 +48,6 @@ class DonateController extends Controller
     {
         $donatePrices = Donation::all();
         $causes = Cause::getCauseList3("", "");
-
         $causeById = Cause::getCauseList3("", $slug);
         $causeList = Cause::getCauseList3("", $slug);
         $now = Carbon::now()->tz('Asia/Jakarta');
@@ -73,50 +72,16 @@ class DonateController extends Controller
             'mediaSocials'  => MediaSocial::all(),
             'about'         => About::first(),
             'now'           => $now,
-            'shareButtons'  => $shareButtons,
+            // 'shareButtons'  => $shareButtons,
             'donatePrices'  => $donatePrices,
             'causeVideos'   => CauseImage::where('cause_id', $causeById[0]->id)
-                ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
+                ->where('image', 'like', '%.mp4')
                 ->get(),
             'content'       => 'user/donate/detail',
         ];
 
         return view('user.layouts.wrapper', $data);
     }
-
-    // public function show($id)
-    // {
-    //     $donatePrices = Donation::all();
-
-    //     $causes = Cause::getCauseList3("");
-    //     $causeById = Cause::getCauseList3($id);
-    //     $causeList = Cause::getCauseList3($id);
-    //     // dd($causeById);
-    //     $now = Carbon::now()->tz('Asia/Jakarta');
-    //     // dd($causeList);
-
-    //     $test = CauseImage::where('cause_id', $id)
-    //         ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
-    //         ->get();
-
-    //     $data = [
-    //         'causes'        => $causes,
-    //         'causeById'     => $causeById[0],
-    //         'causesList'    => $causeList,
-    //         'navbarContent' => NavbarContent::first(),
-    //         'footerContent' => FooterContent::first(),
-    //         'mediaSocials'  => MediaSocial::all(),
-    //         'about'         => About::first(),
-    //         'now'           => $now,
-    //         'donatePrices'  => $donatePrices,
-    //         'causeVideos'   => CauseImage::where('cause_id', $id)
-    //             ->where('image', 'like', '%.mp4') // Filter hanya file video .mp4
-    //             ->get(),
-    //         'content'       => 'user/donate/detail',
-    //     ];
-
-    //     return view('user.layouts.wrapper', $data);
-    // }
 
     public function process(Request $request)
     {

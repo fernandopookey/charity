@@ -13,6 +13,7 @@ use App\Models\MediaSocial;
 use App\Models\NavbarContent;
 use App\Models\Payment;
 use App\Models\Slider;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,13 +21,14 @@ class HomeController extends Controller
     public function index()
     {
         $causes = Cause::getCauseListActive("");
-        // dd($causes->expired_date[0]);
-        // dd($causes);
+        // $user = User::all();
+        // dd($user);
 
         $data = [
             'content'       => 'user/home/index',
             'slider'        => Slider::first(),
             'helpReasons'   => HelpReason::all(),
+            'user'          => User::all(),
             'homeVideo'     => HomeVideo::first(),
             'mediaSocials'  => MediaSocial::all(),
             'about'         => About::first(),
