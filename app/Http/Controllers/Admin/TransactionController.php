@@ -20,6 +20,17 @@ class TransactionController extends Controller
         return view('admin.layout.wrapper', $data);
     }
 
+    public function show($id)
+    {
+        $data = [
+            'title'         => 'Transaction Detail',
+            'transaction'   => Payment::find($id),
+            'content'       => 'admin/transaction/show'
+        ];
+
+        return view('admin.layout.wrapper', $data);
+    }
+
     public function destroy($id)
     {
         $transaction = Payment::find($id);
