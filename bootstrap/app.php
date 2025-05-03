@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin'     => \App\Http\Middleware\IsAdmin::class,
             'Share' => Jorenvh\Share\ShareFacade::class,
+            'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

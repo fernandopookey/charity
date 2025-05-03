@@ -30,9 +30,9 @@
                                     <td>{{ rupiahFormatFloat($transaction->price) }}</td>
                                     <td>{{ $transaction->status }}</td>
                                     <td class="text-center">
-                                        {{-- <a href="{{ route('cause.show', $transaction->id) }}"
+                                        <a href="{{ route('transactions.show', $transaction->id) }}"
                                             class="btn btn-outline-warning btn-sm w-70 mt-1"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></a> --}}
+                                                aria-hidden="true"></i></a>
                                         <form action="{{ route('transactions.destroy', $transaction->id) }}"
                                             onclick="return confirm('Delete Data ? ')" method="POST">
                                             @method('delete')

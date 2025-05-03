@@ -1,7 +1,7 @@
 <section class="section">
     <div class="row">
         <div class="col-lg-12">
-            <div class="page-title flex-wrap justify-content-start">
+            <div class="page-title flex-wrap justify-content-start mb-4">
                 <div class="col-3 d-flex flex-nowrap align-items-center mb-4 mt-2">
                     <input type="date" id="fromDate" class="form-control" value="{{ $fromDate }}">
                     <span class="mx-1">to</span>
@@ -10,7 +10,9 @@
                         Filter
                     </button>
                 </div>
-                <a href="{{ route('transaction-report-pdf') }}" class="btn btn-primary">Download PDF</a>
+                <button type="button" onclick="reloadPage(1)" class="btn btn-outline-info" data-bs-toggle="modal">
+                    Download PDF
+                </button>
             </div>
             <div class="card">
                 {{-- <div class="row">
@@ -30,7 +32,6 @@
                                 <th>Customer Name</th>
                                 <th>Donation Amount</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,18 +41,6 @@
                                     <td>{{ $transaction->customer_name }}</td>
                                     <td>{{ rupiahFormatFloat($transaction->price) }}</td>
                                     <td>{{ $transaction->status }}</td>
-                                    <td class="text-center">
-                                        {{-- <a href="{{ route('cause.show', $transaction->id) }}"
-                                            class="btn btn-outline-warning btn-sm w-70 mt-1"><i class="fa fa-eye"
-                                                aria-hidden="true"></i></a> --}}
-                                        <form action="{{ route('transaction-report-delete', $transaction->id) }}"
-                                            onclick="return confirm('Delete Data ? ')" method="POST">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-outline-danger btn-sm w-70 mt-1"><i
-                                                    class="fa fa-trash" aria-hidden="true"></i></button>
-                                        </form>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -65,12 +54,22 @@
 </section>
 
 
-<script>
-    function reloadPage() {
+{{-- <script>
+    function reloadPage(pdf = 0) {
         var fromDate = document.getElementById("fromDate").value;
         var toDate = document.getElementById("toDate").value;
         // alert(window.location.host );
         window.open(window.location.pathname + '?fromDate=' + fromDate + '&toDate=' + toDate +
             "&date=" + new Date().toISOString(), '_self');
+    }
+</script> --}}
+
+
+<script>
+    function reloadPage(pdf = 0) {
+        var fromDate = document.getElementById("fromDate").value;
+        var toDate = document.getElementById("toDate").value;
+        window.open(window.location.pathname + '?fromDate=' + fromDate + '&toDate=' + toDate +
+            '&pdf=' + pdf + '&date=' + new Date().toISOString(), '_self');
     }
 </script>

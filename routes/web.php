@@ -82,4 +82,15 @@ Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.up
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
+Route::get('/test-pdf', function () {
+    $data = [
+        'title' => 'Test PDF',
+        'content' => 'Ini hanya contoh isi PDF',
+    ];
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pdf.test', $data);
+    return $pdf->stream('test-pdf.pdf');
+});
+
+
 require __DIR__ . '/auth.php';
