@@ -8,36 +8,61 @@ use App\Models\Cause;
 use App\Models\CauseImage;
 use App\Models\Donation;
 use App\Models\FooterContent;
+use App\Models\HelpReason;
+use App\Models\HomeVideo;
 use App\Models\MediaSocial;
 use App\Models\NavbarContent;
+use App\Models\Payment;
+use App\Models\Slider;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DonateController extends Controller
 {
+    // public function index()
+    // {
+    //     $causes = Cause::with('causePayment')->get();
+
+    //     $pricesByCause = [];
+
+    //     foreach ($causes as $cause) {
+    //         foreach ($cause->causePayment as $payment) {
+    //             if (isset($pricesByCause[$cause->id])) {
+    //                 $pricesByCause[$cause->id] += $payment->price;
+    //             } else {
+    //                 $pricesByCause[$cause->id] = $payment->price;
+    //             }
+    //         }
+    //     }
+
+    //     $data = [
+    //         'causes'    => Cause::where('status', 1)->get(),
+    //         'navbarContent' => NavbarContent::first(),
+    //         'footerContent' => FooterContent::first(),
+    //         'mediaSocials'  => MediaSocial::all(),
+    //         'about'         => About::first(),
+    //         'causesWithRaised' => $pricesByCause,
+    //         'content'   => 'user/donate/index'
+    //     ];
+
+    //     return view('user.layouts.wrapper', $data);
+    // }
+
     public function index()
     {
-        $causes = Cause::with('causePayment')->get();
-
-        $pricesByCause = [];
-
-        foreach ($causes as $cause) {
-            foreach ($cause->causePayment as $payment) {
-                if (isset($pricesByCause[$cause->id])) {
-                    $pricesByCause[$cause->id] += $payment->price;
-                } else {
-                    $pricesByCause[$cause->id] = $payment->price;
-                }
-            }
-        }
+        $causes = Cause::getCauseListActive("");
 
         $data = [
-            'causes'    => Cause::where('status', 1)->get(),
-            'navbarContent' => NavbarContent::first(),
-            'footerContent' => FooterContent::first(),
+            'slider'        => Slider::first(),
+            'helpReasons'   => HelpReason::all(),
+            'user'          => User::all(),
+            'homeVideo'     => HomeVideo::first(),
             'mediaSocials'  => MediaSocial::all(),
             'about'         => About::first(),
-            'causesWithRaised' => $pricesByCause,
+            'transaction'   => Payment::count(),
+            'causeCount'    => Cause::count(),
+            'causes'        => $causes,
             'content'   => 'user/donate/index'
         ];
 

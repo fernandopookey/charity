@@ -25,16 +25,13 @@ class TransactionReportController extends Controller
         $payments = Payment::whereDate('created_at', '>=', $fromDate)
             ->whereDate('created_at', '<=', $toDate)->get();
 
-        // if ($pdf && $pdf == '1') {
-        //     $pdf = Pdf::loadView('admin/transaction-report/index', ['transactions'   => $payments]);
-        //     return $pdf->stream('transaction-report.pdf');
-        // }
-
         if ($pdf && $pdf == '1') {
-            $pdf = Pdf::loadView('admin/transaction-report/index', [
-                'transactions'   => $payments,
+            $pdf = Pdf::loadView('admin/transaction-report/pdf', [
+                'transactions' => $payments,
+                'fromDate'     => $fromDate,
+                'toDate'       => $toDate,
             ]);
-            return $pdf->stream('Report-member-checkin, ' . $fromDate . '-' . $toDate . '.pdf');
+            return $pdf->stream('Transaction-Report, ' . $fromDate . ' to ' . $toDate . '.pdf');
         }
 
         $data = [
@@ -47,6 +44,7 @@ class TransactionReportController extends Controller
 
         return view('admin.layout.wrapper', $data);
     }
+
 
     public function pdf()
     {

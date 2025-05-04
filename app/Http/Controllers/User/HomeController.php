@@ -21,8 +21,6 @@ class HomeController extends Controller
     public function index()
     {
         $causes = Cause::getCauseListActive("");
-        // $user = User::all();
-        // dd($user);
 
         $data = [
             'content'       => 'user/home/index',
