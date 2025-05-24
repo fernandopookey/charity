@@ -77,17 +77,6 @@ class DonateController extends Controller
         $causeList = Cause::getCauseList3("", $slug);
         $now = Carbon::now()->tz('Asia/Jakarta');
 
-        // Share
-        $shareButtons = \Share::page(
-            url()->current(),
-            $causeById[0]->title
-        )
-            ->whatsapp()
-            ->facebook()
-            ->twitter()
-            ->linkedin()
-            ->telegram();
-
         $data = [
             'causes'        => $causes,
             'causeById'     => $causeById[0],
