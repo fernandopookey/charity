@@ -192,7 +192,7 @@
                 </form>
 
                 @php
-                    $shareButtons = \Share::page(url()->current(), 'Bagikan yuk!')
+                    $shareButtons = \Jorenvh\Share\ShareFacade::page(url()->current(), 'Bagikan yuk!')
                         ->whatsapp()
                         ->facebook()
                         ->twitter()
